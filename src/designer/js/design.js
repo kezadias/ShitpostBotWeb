@@ -27,16 +27,13 @@ function init(){
 //reinitializes the rects variable, then redraws. used for initialization and clearing
 function resetRects(){
 	rects = [];
-	for(var i = 0; i < styles.length; i++){
-		rects[i] = [];
-	}
 	draw();
 }
 
 //resizes the canvas based on the image loaded
 //this is a prototype, so it's hard coded for now
 function resizeCanvas(){
-	canvas.width  = 625;
+	canvas.width	= 625;
 	canvas.height = 790;
 }
 
@@ -54,15 +51,12 @@ function draw(){
 	}
 	
 	//then all the rectangles that have been drawn already
-	$('#log').text(JSON.stringify(rects, null, 4));
-	for(var p = 0; p < styles.length; p++){
-		ctx.strokeStyle = styles[p];
-		if(rects[p] != undefined){
-			for(var i = 0; i < rects[p].length; i++){
-				var rect = rects[p][i];
-				ctx.strokeRect(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
-			}
-		}
+	$('#log').text(JSON.stringify(format(), null, 4));
+	for(var p = 0; p < rects.length; p++){
+		var rdata = rects[p];
+		ctx.strokeStyle = styles[rdata[0]];
+		var rect = rdata[1];
+		ctx.strokeRect(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
 	}
 }
 
@@ -85,7 +79,7 @@ function updateDrawingRect(event){
 //finishes the rectangle drawing process
 //called when the mouse is released
 function addRectangle(){
-	var i = rects[penId].length;
+	//var i = rects[penId].length;
 	var x1 = Math.min(mouseX, rectStartX);
 	var y1 = Math.min(mouseY, rectStartY);
 	var x2 = Math.max(mouseX, rectStartX);
@@ -93,7 +87,7 @@ function addRectangle(){
 	var width = x2 - x1;
 	var height = y2 - y1;
 	if(width > minRectSize && height > minRectSize && getRectCount() < maxRectCount){
-		rects[penId][i] = [x1, y1, x2, y2];
+		rects.push([penId, [x1, y1, x2, y2]]);
 	}
 	draw();
 }
@@ -101,16 +95,19 @@ function addRectangle(){
 //updates the saved mouse coordinates
 function updateMouseCoords(event){
 	var rect = canvas.getBoundingClientRect();
-    mouseX = event.clientX - rect.left;
-    mouseY = event.clientY - rect.top;
+		mouseX = event.clientX - rect.left;
+		mouseY = event.clientY - rect.top;
 }
 
 function getRectCount(){
-	var count = 0;
-	for(var p = 0; p < styles.length; p++){
-		count += rects[p].length;
-	}
-	return count;
+	return rects.length;
+}
+
+function undo() {
+	if (rects.length) {
+		rects.pop();
+		draw();
+	}	
 }
 
 //registers all the click listeners, including the ones for the canvas
@@ -131,6 +128,8 @@ function registerListeners(){
 		penId = 3;
 	});
 	
+	$('#undo').click(undo);
+	
 	$('#clear').click(resetRects);
 	
 	$(canvas).mousedown(function(event) {
@@ -148,6 +147,23 @@ function registerListeners(){
 		isDragging = false;
 		addRectangle();
 	});
+}
+
+function format() {
+	var g = [];
+	var tp = rects.slice().sort(function(d, f){ return d[0] - f[0]});
+	var last = null;
+	var cu;
+	for (var i = 0; i < tp.length; i++) {
+		var cur = tp[i];
+		if (last != cur[0]) {
+			cu = [];
+			g.push(cu);
+			last = cur[0];
+		}
+	 cu.push(cur[1]);
+	}
+	return g;
 }
 
 $(document).ready(function(){
