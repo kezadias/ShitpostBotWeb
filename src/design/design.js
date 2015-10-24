@@ -1,3 +1,5 @@
+var minRectSize = 15;
+
 var canvas;
 var ctx;
 var penId = 0;
@@ -83,7 +85,15 @@ function updateDrawingRect(event){
 //called when the mouse is released
 function addRectangle(){
 	var i = rects[penId].length;
-	rects[penId][i] = [Math.min(mouseX, rectStartX), Math.min(mouseY, rectStartY), Math.max(mouseX, rectStartX), Math.max(mouseY, rectStartY)];
+	var x1 = Math.min(mouseX, rectStartX);
+	var y1 = Math.min(mouseY, rectStartY);
+	var x2 = Math.max(mouseX, rectStartX);
+	var y2 = Math.max(mouseY, rectStartY);
+	var width = x2 - x1;
+	var height = y2 - y1;
+	if(width > minRectSize && height > minRectSize){
+		rects[penId][i] = [x1, y1, x2, y2];
+	}
 	draw();
 }
 
