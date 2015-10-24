@@ -1,4 +1,5 @@
 var minRectSize = 15;
+var maxRectCount = 10;
 
 var canvas;
 var ctx;
@@ -91,7 +92,7 @@ function addRectangle(){
 	var y2 = Math.max(mouseY, rectStartY);
 	var width = x2 - x1;
 	var height = y2 - y1;
-	if(width > minRectSize && height > minRectSize){
+	if(width > minRectSize && height > minRectSize && getRectCount() < maxRectCount){
 		rects[penId][i] = [x1, y1, x2, y2];
 	}
 	draw();
@@ -102,6 +103,14 @@ function updateMouseCoords(event){
 	var rect = canvas.getBoundingClientRect();
     mouseX = event.clientX - rect.left;
     mouseY = event.clientY - rect.top;
+}
+
+function getRectCount(){
+	var count = 0;
+	for(var p = 0; p < styles.length; p++){
+		count += rects[p].length;
+	}
+	return count;
 }
 
 //registers all the click listeners, including the ones for the canvas
