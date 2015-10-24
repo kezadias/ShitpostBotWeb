@@ -1,0 +1,10 @@
+#canvas {
+	background: url(img.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#log { 
+	white-space: pre; 
+	font-family: monospace; 
+}
