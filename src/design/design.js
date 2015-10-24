@@ -12,6 +12,7 @@ var mouseY;
 
 var rects;
 
+//is called when the page has finished loading
 function init(){
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
@@ -20,6 +21,7 @@ function init(){
 	resetRects();
 }
 
+//reinitializes the rects variable, then redraws. used for initialization and clearing
 function resetRects(){
 	rects = [];
 	for(var i = 0; i < styles.length; i++){
@@ -28,20 +30,27 @@ function resetRects(){
 	draw();
 }
 
+//resizes the canvas based on the image loaded
+//this is a prototype, so it's hard coded for now
 function resizeCanvas(){
 	canvas.width  = 625;
 	canvas.height = 790;
 }
 
+//draws based on the mouse info and rects variable
 function draw(){
+	//clear the screen
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	setStyleFromPenColour();
+	
+	//first, the rectangle being currently drawn
+	ctx.strokeStyle = styles[penId];
 	if(isDragging){
 		ctx.setLineDash([3,1]);
 		ctx.strokeRect(rectStartX, rectStartY, mouseX - rectStartX, mouseY - rectStartY);
 		ctx.setLineDash([1,0]);
 	}
 	
+	//then all the rectangles that have been drawn already
 	$('#log').text(JSON.stringify(rects, null, 4));
 	for(var p = 0; p < styles.length; p++){
 		ctx.strokeStyle = styles[p];
@@ -54,10 +63,8 @@ function draw(){
 	}
 }
 
-function setStyleFromPenColour(){
-	ctx.strokeStyle = styles[penId];
-}
-
+//starts the rectangle drawing process
+//called when the mouse is pressed down
 function startDrawingRect(event){
 	updateMouseCoords(event);
 	rectStartX = mouseX;
@@ -65,23 +72,29 @@ function startDrawingRect(event){
 	draw();
 }
 
+//updates the rectangle drawing process
+//called when the mouse is dragged
 function updateDrawingRect(event){
 	updateMouseCoords(event);
 	draw();
 }
 
+//finishes the rectangle drawing process
+//called when the mouse is released
 function addRectangle(){
 	var i = rects[penId].length;
 	rects[penId][i] = [Math.min(mouseX, rectStartX), Math.min(mouseY, rectStartY), Math.max(mouseX, rectStartX), Math.max(mouseY, rectStartY)];
 	draw();
 }
 
+//updates the saved mouse coordinates
 function updateMouseCoords(event){
 	var rect = canvas.getBoundingClientRect();
     mouseX = event.clientX - rect.left;
     mouseY = event.clientY - rect.top;
 }
 
+//registers all the click listeners, including the ones for the canvas
 function registerListeners(){
 	$('#red').click(function(){
 		penId = 0;
@@ -102,7 +115,7 @@ function registerListeners(){
 	$('#clear').click(resetRects);
 	
 	$(canvas).mousedown(function(event) {
-		event.preventDefault();
+		event.preventDefault(); //disables the text select cursor from showing up
 		isDragging = true;
 		startDrawingRect(event);
 	})
