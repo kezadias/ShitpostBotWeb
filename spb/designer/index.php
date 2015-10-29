@@ -1,3 +1,7 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT']."/spb/dataaccess/loader.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +16,14 @@
 	<input type='button' id='green' value='Green'/>
 	<input type='button' id='blue' value='Blue'/>
 	<input type='button' id='purple' value='Purple'/><br>
+	<?php
+		$colours = array('red', 'green', 'blue', 'purple');
+		foreach($colours as $colour){
+			addCategoriesComboBox($colour."cat");
+		}
+	?><br>
 
-	<input type='button' id='clear' value='Clear'/><br>
+	<input type='button' id='clear' value='Clear'/>
 	<input type='button' id='undo' value='Undo'/><br>
 
 	<div id='rectlist'></div><br>
