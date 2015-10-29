@@ -15,7 +15,7 @@ var mouseY;
 
 var rects;
 
-var size = { x: 625, y: 790}; //placeholder
+var size = {x: 625, y: 790}; //placeholder
 
 //is called when the page has finished loading
 function init(){
