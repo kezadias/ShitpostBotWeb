@@ -15,7 +15,7 @@ var mouseY;
 
 var rects;
 
-size = [625, 790]; //placeholder
+var size = { x: 625, y: 790}; //placeholder
 
 //is called when the page has finished loading
 function init(){
@@ -35,8 +35,8 @@ function resetRects(){
 //resizes the canvas based on the image loaded
 //this is a prototype, so it's hard coded for now
 function resizeCanvas(){
-	canvas.width  = size[0];
-	canvas.height = size[1];
+	canvas.width  = size.x;
+	canvas.height = size.y;
 }
 
 //draws based on the mouse info and rects variable
@@ -164,9 +164,9 @@ function format() {
 			lst = pen;
 		}
 		var ecl = cur[1];
-		var	pos = [ecl[0] / size[0], ecl[1] / size[1],
-				   ecl[2] / size[0], ecl[3] / size[1]];
-		locs.push(po);
+		var	pos = [ecl[0] / size.x, ecl[1] / size.y,
+				   ecl[2] / size.x, ecl[3] / size.y];
+		locs.push(pos);
 	}
 	return out;
 }
