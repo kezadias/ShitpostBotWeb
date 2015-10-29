@@ -15,6 +15,8 @@ var mouseY;
 
 var rects;
 
+size = [625, 790]; //placeholder
+
 //is called when the page has finished loading
 function init(){
 	canvas = document.getElementById("canvas");
@@ -33,8 +35,8 @@ function resetRects(){
 //resizes the canvas based on the image loaded
 //this is a prototype, so it's hard coded for now
 function resizeCanvas(){
-	canvas.width	= 625;
-	canvas.height = 790;
+	canvas.width  = size[0];
+	canvas.height = size[1];
 }
 
 //draws based on the mouse info and rects variable
@@ -150,20 +152,23 @@ function registerListeners(){
 }
 
 function format() {
-	var g = [];
-	var tp = rects.slice().sort(function(d, f){ return d[0] - f[0]});
-	var last = null;
-	var cu;
-	for (var i = 0; i < tp.length; i++) {
-		var cur = tp[i];
-		if (last != cur[0]) {
-			cu = [];
-			g.push(cu);
-			last = cur[0];
+	var all = rects.slice().sort(function(d, f){ return d[0] - f[0]});
+	var	lst = null;
+	var	out = [];
+	for (var i = 0; i < all.length; i++) {
+		var cur = all[i];
+		var	pen = cur[0];
+		if (lst != pen) {
+			var locs = [];
+			out.push(locs);
+			lst = pen;
 		}
-	 cu.push(cur[1]);
+		var ecl = cur[1];
+		var	pos = [ecl[0] / size[0], ecl[1] / size[1],
+				   ecl[2] / size[0], ecl[3] / size[1]];
+		locs.push(po);
 	}
-	return g;
+	return out;
 }
 
 $(document).ready(function(){
