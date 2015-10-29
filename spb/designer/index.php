@@ -25,7 +25,9 @@ include $_SERVER['DOCUMENT_ROOT']."/spb/dataaccess/loader.php";
 
 	<input type='button' id='clear' value='Clear'/>
 	<input type='button' id='undo' value='Undo'/><br>
-
+	
+	<textarea id='json' value=''/></textarea><br>
+	
 	<div id='rectlist'></div><br>
 	<div id='log'></div>
 
