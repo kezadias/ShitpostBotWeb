@@ -53,7 +53,9 @@ function draw(){
 	}
 	
 	//then all the rectangles that have been drawn already
-	$('#log').text(JSON.stringify(format(), null, 4));
+	var fmt = format();
+	$('#json').text(JSON.stringify(fmt));
+	$('#log').text(JSON.stringify(fmt, null, 4));
 	for(var p = 0; p < rects.length; p++){
 		var rdata = rects[p];
 		ctx.strokeStyle = styles[rdata[0]];
