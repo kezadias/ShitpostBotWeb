@@ -5,7 +5,11 @@ function getArrayFromFile($file){
 }
 
 function getCategories(){
-	return explode(PHP_EOL, file_get_contents('../data/categories.txt'));
+	return $GLOBALS['categories'];
+}
+
+function updateCategories(){
+	$GLOBALS['categories'] = explode(PHP_EOL, file_get_contents('../data/categories.txt'));
 }
 
 function addCategoriesComboBox($id, $class = 'categories'){
@@ -18,5 +22,7 @@ function addCategoriesComboBox($id, $class = 'categories'){
 	}
 	echo "</select>";
 }
+
+updateCategories();
 
 ?>
