@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php
-#include $_SERVER['DOCUMENT_ROOT']."/spb/dataaccess/loader.php";
 include "../dataaccess/loader.php";
 ?>
 
