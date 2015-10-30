@@ -5,7 +5,7 @@ function getArrayFromFile($file){
 }
 
 function getCategories(){
-	return explode(PHP_EOL, file_get_contents($_SERVER['DOCUMENT_ROOT'].'/spb/data/categories.txt'));
+	return explode(PHP_EOL, file_get_contents('../data/categories.txt'));
 }
 
 function addCategoriesComboBox($id, $class = 'categories'){
