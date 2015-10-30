@@ -2,7 +2,6 @@
 <?php
 include "../dataaccess/loader.php";
 ?>
-
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -16,6 +15,7 @@ include "../dataaccess/loader.php";
 	<input type='button' id='green' value='Green'/>
 	<input type='button' id='blue' value='Blue'/>
 	<input type='button' id='purple' value='Purple'/><br>
+	<input type='button' id='eraser' value='Eraser'/><br>
 	<?php
 		$colours = array('red', 'green', 'blue', 'purple');
 		foreach($colours as $colour){

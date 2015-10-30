@@ -3,8 +3,8 @@ var maxRectCount = 10;
 
 var canvas;
 var ctx;
-var penId = 0;
-var styles = ["#ff0000","#00ff00","#0000ff","#5C2A83"];
+var penId = 1;
+var styles = ["#000000","#ff0000","#00ff00","#0000ff","#5C2A83"];
 
 var isDragging;
 
@@ -83,14 +83,21 @@ function updateDrawingRect(event){
 //finishes the rectangle drawing process
 //called when the mouse is released
 function addRectangle(){
-	//var i = rects[penId].length;
 	var x1 = Math.min(mouseX, rectStartX);
 	var y1 = Math.min(mouseY, rectStartY);
 	var x2 = Math.max(mouseX, rectStartX);
 	var y2 = Math.max(mouseY, rectStartY);
 	var width = x2 - x1;
 	var height = y2 - y1;
-	if(width > minRectSize && height > minRectSize && getRectCount() < maxRectCount){
+	if (penId == 0) {
+		rects = rects.filter(function(d) {
+			var r = d[1];
+			if (x1 <= r[0] && y1 <= r[1] && x2 >= r[2] && y2 >= r[3]) {
+				return false;
+			}
+			return true;
+		});
+	} else if (width > minRectSize && height > minRectSize && getRectCount() < maxRectCount){
 		rects.push([penId, [x1, y1, x2, y2]]);
 	}
 	draw();
@@ -117,19 +124,23 @@ function undo() {
 //registers all the click listeners, including the ones for the canvas
 function registerListeners(){
 	$('#red').click(function(){
-		penId = 0;
-	});
-	
-	$('#green').click(function(){
 		penId = 1;
 	});
 	
-	$('#blue').click(function(){
+	$('#green').click(function(){
 		penId = 2;
 	});
 	
-	$('#purple').click(function(){
+	$('#blue').click(function(){
 		penId = 3;
+	});
+	
+	$('#purple').click(function(){
+		penId = 4;
+	});
+	
+	$('#eraser').click(function(){
+		penId = 0;
 	});
 	
 	$('#undo').click(undo);
