@@ -1,9 +1,9 @@
+<!DOCTYPE html>
 <?php
 #include $_SERVER['DOCUMENT_ROOT']."/spb/dataaccess/loader.php";
 include "../dataaccess/loader.php";
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
