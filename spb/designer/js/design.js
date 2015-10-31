@@ -58,8 +58,12 @@ function draw(){
 	$('#log').text(JSON.stringify(fmt, null, 4));
 	for(var p = 0; p < rects.length; p++){
 		var rdata = rects[p];
-		ctx.strokeStyle = styles[rdata[0]];
 		var rect = rdata[1];
+		if(typeof rdata[2] !== 'undefined') {
+			ctx.fillStyle = '#'+rdata[2];
+			ctx.fillRect(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
+		}
+		ctx.strokeStyle = styles[rdata[0]];
 		ctx.strokeRect(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
 	}
 }
@@ -98,7 +102,11 @@ function addRectangle(){
 			return true;
 		});
 	} else if (width > minRectSize && height > minRectSize && getRectCount() < maxRectCount && !checkIntersection(x1, y1, x2, y2)){
-		rects.push([penId, [x1, y1, x2, y2]]);
+		if(shouldAddFillColour()){
+			rects.push([penId, [x1, y1, x2, y2], getSelectedFillColour()]);
+		} else{
+			rects.push([penId, [x1, y1, x2, y2]]);
+		}
 	}
 	draw();
 }
@@ -132,6 +140,14 @@ function undo() {
 		rects.pop();
 		draw();
 	}	
+}
+
+function shouldAddFillColour(){
+	return $('#fillcolourchk').is(':checked');
+}
+
+function getSelectedFillColour(){
+	return $('#fillcolour').val();
 }
 
 //registers all the click listeners, including the ones for the canvas
@@ -190,8 +206,14 @@ function format() {
 			lst = pen;
 		}
 		var ecl = cur[1];
-		var	pos = [ecl[0] / size.x, ecl[1] / size.y,
-				   ecl[2] / size.x, ecl[3] / size.y];
+		if(typeof cur[2] === 'undefined'){
+			var	pos = [ecl[0] / size.x, ecl[1] / size.y,
+					   ecl[2] / size.x, ecl[3] / size.y];
+		} else{
+			var	pos = [ecl[0] / size.x, ecl[1] / size.y,
+					   ecl[2] / size.x, ecl[3] / size.y,
+					   cur[2]];
+		}
 		locs.push(pos);
 	}
 	return out;
