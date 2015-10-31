@@ -97,10 +97,23 @@ function addRectangle(){
 			}
 			return true;
 		});
-	} else if (width > minRectSize && height > minRectSize && getRectCount() < maxRectCount){
+	} else if (width > minRectSize && height > minRectSize && getRectCount() < maxRectCount && !checkIntersection(x1, y1, x2, y2)){
 		rects.push([penId, [x1, y1, x2, y2]]);
 	}
 	draw();
+}
+
+//returns true if the specified coordinates intersect with any other coordinates
+function checkIntersection(x1, y1, x2, y2){
+	for(var p = 0; p < rects.length; p++){
+		var rect = rects[p][1];
+		var xOverlap = Math.max(0, Math.min(x2, rect[2]) - Math.max(x1, rect[0]));
+		var yOverlap = Math.max(0, Math.min(y2, rect[3]) - Math.max(y1, rect[1]));
+		if(xOverlap * yOverlap != 0){
+			return true;
+		}
+	}
+	return false;
 }
 
 //updates the saved mouse coordinates
