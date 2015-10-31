@@ -103,7 +103,9 @@ function addRectangle(){
 		});
 	} else if (width > minRectSize && height > minRectSize && getRectCount() < maxRectCount && !checkIntersection(x1, y1, x2, y2)){
 		if(shouldAddFillColour()){
-			rects.push([penId, [x1, y1, x2, y2], getSelectedFillColour()]);
+			if(isFillColourValid()){
+				rects.push([penId, [x1, y1, x2, y2], getSelectedFillColour()]);
+			}
 		} else{
 			rects.push([penId, [x1, y1, x2, y2]]);
 		}
@@ -144,6 +146,11 @@ function undo() {
 
 function shouldAddFillColour(){
 	return $('#fillcolourchk').is(':checked');
+}
+
+function isFillColourValid(){
+	var colour = getSelectedFillColour();
+	return /^[0-9A-F]{6}$/i.test(colour);
 }
 
 function getSelectedFillColour(){
