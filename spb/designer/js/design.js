@@ -35,8 +35,10 @@ function resetRects(){
 //resizes the canvas based on the image loaded
 //this is a prototype, so it's hard coded for now
 function resizeCanvas(){
-	canvas.width  = size.x;
+	canvas.width = size.x;
 	canvas.height = size.y;
+	canvas.setAttribute('width', size.x.toString());
+	canvas.setAttribute('height', size.y.toString());
 }
 
 //draws based on the mouse info and rects variable
@@ -129,8 +131,8 @@ function checkIntersection(x1, y1, x2, y2){
 //updates the saved mouse coordinates
 function updateMouseCoords(event){
 	var rect = canvas.getBoundingClientRect();
-		mouseX = event.clientX - rect.left;
-		mouseY = event.clientY - rect.top;
+	mouseX = event.clientX - rect.left;
+	mouseY = event.clientY - rect.top;
 }
 
 function getRectCount(){
