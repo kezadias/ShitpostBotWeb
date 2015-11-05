@@ -1,15 +1,21 @@
+.orange{
+	background-color: #ffb646;
+}
+
 .padded{
-	padding: 20px;
+	padding: 5px;
 }
 
 .boxed{
 	max-width: 1200px;
 	margin: auto auto;
 	background-color: #fff;
+	padding: 15px;
+	border-radius: 4px;
 }
 
 .navbar-orange {
-	background-color: #FFAE32;
+	background-color: transparent;
 }
 
 .navbar-orange .navbar-brand {
