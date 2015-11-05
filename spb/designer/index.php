@@ -4,10 +4,12 @@ $GlOBALS['style'] = '../style.css';
 include('../header.php');
 
 include("../dataaccess/loader.php");
+$w = 625;
+$h = 790;
 ?>
 
 <link rel="stylesheet" href="css/style.css">
-<div id='canvasdiv'><canvas id='canvas' width='625' height='790'></canvas></div><br>
+<canvas id='canvas' width='625' height='790'></canvas><br>
 
 <input type='button' id='red' value='Red'/>
 <input type='button' id='green' value='Green'/>
@@ -34,4 +36,11 @@ include("../dataaccess/loader.php");
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="jscolor/jscolor.js"></script>
 <script src="js/design.js"></script>
+<script>
+$(document).ready(function(){
+	init(<?="$w, $h"?>); //before any of you whinge about this line of code, THIS IS TEMPORARY
+	//THIS SHIT WILL BE REPLACED BY AJAX
+	//so SIT YOUR ASSES DOWN and wait for everything else to be in place
+});
+</script>
 <?php include('../footer.php');

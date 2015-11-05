@@ -1,5 +1,6 @@
 var minRectSize = 15;
 var maxRectCount = 10;
+var maxWidth = 600;
 
 var canvas;
 var ctx;
@@ -15,10 +16,13 @@ var mouseY;
 
 var rects;
 
-var size = {x: 625, y: 790}; //placeholder
+var size = {};
 
 //is called when the page has finished loading
-function init(){
+function init(width, height){
+	var scale = maxWidth / width;
+	size.x = width * scale;
+	size.y = height * scale;
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
 	resizeCanvas();
@@ -225,7 +229,3 @@ function format() {
 	}
 	return out;
 }
-
-$(document).ready(function(){
-	init();
-});

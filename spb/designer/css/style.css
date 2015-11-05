@@ -1,9 +1,7 @@
-#canvasdiv {
+#canvas {
 	background: url(../img/img.png);
 	background-repeat: no-repeat;
 	background-size: cover;
-	width: 625px;
-	height: 790px;
 }
 
 #log { 
