@@ -1,18 +1,30 @@
-html {
-	background-color: #FEAD4F;
+.padded{
+	padding: 20px;
 }
 
-header {
-	height: 250px;
-}
-
-body{
-	background-color: #FFFFFF;
-	width: 1200px;
+.boxed{
+	max-width: 1200px;
 	margin: auto auto;
-	padding-left: 40px;
-	padding-right: 40px;
-	padding-top: 10px;
-	padding-bottom: 40px;
-	font-family: sans-serif;
+	background-color: #fff;
+}
+
+.navbar-orange {
+	background-color: #FFAE32;
+}
+
+.navbar-orange .navbar-brand {
+	color: #fff;
+}
+.navbar-orange .navbar-brand:hover,
+.navbar-orange .navbar-brand:focus {
+	background-color: #ffbe5a;
+}
+
+.navbar-orange .navbar-nav > li > a {
+	color: #333;
+}
+
+.navbar-orange .navbar-nav > li > a:hover,
+.navbar-orange .navbar-nav > li > a:focus {
+	background-color: #ffbe5a;
 }
