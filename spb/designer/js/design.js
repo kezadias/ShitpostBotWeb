@@ -37,8 +37,6 @@ function resetRects(){
 function resizeCanvas(){
 	canvas.width = size.x;
 	canvas.height = size.y;
-	canvas.setAttribute('width', size.x.toString());
-	canvas.setAttribute('height', size.y.toString());
 }
 
 //draws based on the mouse info and rects variable
@@ -49,7 +47,7 @@ function draw(){
 	//first, the rectangle being currently drawn
 	ctx.strokeStyle = styles[penId];
 	if(isDragging){
-		ctx.setLineDash([3,1]);
+		ctx.setLineDash([3,3]);
 		ctx.strokeRect(rectStartX, rectStartY, mouseX - rectStartX, mouseY - rectStartY);
 		ctx.setLineDash([1,0]);
 	}

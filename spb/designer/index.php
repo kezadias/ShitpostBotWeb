@@ -7,7 +7,7 @@ include("../dataaccess/loader.php");
 ?>
 
 <link rel="stylesheet" href="css/style.css">
-<canvas id='canvas' width=625 height=790></canvas><br>
+<div id='canvasdiv'><canvas id='canvas' width='625' height='790'></canvas></div><br>
 
 <input type='button' id='red' value='Red'/>
 <input type='button' id='green' value='Green'/>
