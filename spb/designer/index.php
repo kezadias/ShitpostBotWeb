@@ -9,7 +9,9 @@ $h = 790;
 ?>
 
 <link rel="stylesheet" href="css/style.css">
-<canvas id='canvas' width='625' height='790'></canvas><br>
+
+<canvas id='canvas'></canvas>
+<img id='liveupdate'/><br>
 
 <input type='button' class='control' id='red' value='Red'/>
 <input type='button' class='control' id='green' value='Green'/>

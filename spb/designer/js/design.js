@@ -23,27 +23,30 @@ function init(width, height){
 	if(isTouchScreen()){
 		$('input.control').css({ 'height': '80px', 'font-size': '24px' });
 	}
-	var scale = maxWidth / width;
-	size.x = width * scale;
-	size.y = height * scale;
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
-	resizeCanvas();
+	resizeCanvas(width, height);
 	registerListeners();
 	resetRects();
+	doLiveUpdate();
 }
 
 //reinitializes the rects variable, then redraws. used for initialization and clearing
 function resetRects(){
 	rects = [];
 	draw();
+	doLiveUpdate();
 }
 
-//resizes the canvas based on the image loaded
-//this is a prototype, so it's hard coded for now
-function resizeCanvas(){
+function resizeCanvas(width, height){
+	var scale = maxWidth / width;
+	size.x = width * scale;
+	size.y = height * scale;
+	
 	canvas.width = size.x;
 	canvas.height = size.y;
+	
+	$('#liveupdate').css({'width': size.x+'px', 'height': size.y+'px', 'vertical-align': 'top'});
 }
 
 //draws based on the mouse info and rects variable
@@ -118,6 +121,7 @@ function addRectangle(){
 		}
 	}
 	draw();
+	doLiveUpdate();
 }
 
 //returns true if the specified coordinates intersect with any other coordinates
@@ -167,6 +171,7 @@ function undo() {
 	if (rects.length) {
 		rects.pop();
 		draw();
+		doLiveUpdate();
 	}	
 }
 
@@ -259,4 +264,8 @@ function format() {
 		locs.push(pos);
 	}
 	return out;
+}
+
+function doLiveUpdate(){
+	$('#liveupdate').attr("src", "../generator/generate.php?p="+JSON.stringify(format()));
 }
