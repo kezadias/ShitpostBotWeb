@@ -9,14 +9,20 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
+
 <body>
+
 <div class="container-fluid orange">
+
+<!--navbar-->
 <nav class="navbar navbar-orange navbar-fixed-top">
 <div class="container">
-	<div class="navbar-header">
+
+<div class="navbar-header">
 	<a class="navbar-brand" href="#">ShitpostBot 5000</a>
-	</div>
-	<div>
+</div>
+
+<div>
 	<ul class="nav navbar-nav">
 		<li><a href="#">Home</a></li>
 		
@@ -27,19 +33,21 @@
 				<li><a href="#">Source Image</a></li>
 				<li><a href="#">Template</a></li>
 			</ul>
-			</li>
+		</li>
 			
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Gallery
-				<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#">Source Image</a></li>
-					<li><a href="#">Template</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Gallery
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="#">Source Image</a></li>
+				<li><a href="#">Template</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
 </div>
 </nav>
+
+<!--start of body -->
 <div class="body">
 <div class="boxed">
