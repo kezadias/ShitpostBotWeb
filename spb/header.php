@@ -11,8 +11,8 @@
 </head>
 <body>
 <div class="container-fluid orange">
-	<nav class="navbar navbar-orange">
-	<div class="container-fluid">
+	<nav class="navbar navbar-orange navbar-fixed-top">
+	<div class="container">
 		<div class="navbar-header">
 		<a class="navbar-brand" href="#">ShitpostBot 5000</a>
 		</div>
@@ -41,4 +41,5 @@
 		</div>
 	</div>
 	</nav>
+	<div class="body">
 	<div class="boxed">

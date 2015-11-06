@@ -1,5 +1,9 @@
 .orange{
-	background-color: #ffb646;
+	background-color: #fff7ec;
+}
+
+.body{
+	padding-top: 70px;
 }
 
 .boxed{
@@ -11,7 +15,7 @@
 }
 
 .navbar-orange {
-	background-color: transparent;
+	background-color: #ffb646;
 }
 
 .navbar-orange .navbar-brand {
