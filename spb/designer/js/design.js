@@ -1,5 +1,5 @@
 var minRectSize = 15;
-var maxRectCount = 10;
+var maxRectCount = 20;
 var maxWidth = 600;
 
 var canvas;
