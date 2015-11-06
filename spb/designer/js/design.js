@@ -111,6 +111,7 @@ function addRectangle(){
 			}
 			return true;
 		});
+		doLiveUpdate();
 	} else if (width > minRectSize && height > minRectSize && getRectCount() < maxRectCount && !checkIntersection(x1, y1, x2, y2)){
 		if(shouldAddFillColour()){
 			if(isFillColourValid()){
@@ -119,9 +120,9 @@ function addRectangle(){
 		} else{
 			rects.push([penId, [x1, y1, x2, y2]]);
 		}
+		doLiveUpdate();
 	}
 	draw();
-	doLiveUpdate();
 }
 
 //returns true if the specified coordinates intersect with any other coordinates
@@ -214,6 +215,10 @@ function registerListeners(){
 	
 	$('#clear').click(resetRects);
 	
+	$('#refresh').click(function(){
+		doLiveUpdate();
+	});
+	
 	$('#canvas').on('mousedown touchstart', function(event){
 		event.preventDefault(); //disables the text select cursor from showing up
 		isDragging = true;
@@ -267,5 +272,5 @@ function format() {
 }
 
 function doLiveUpdate(){
-	$('#liveupdate').attr("src", "../generator/generate.php?p="+JSON.stringify(format()));
+	$('#liveupdate').attr("src", "../generator/generate.php?p="+JSON.stringify(format())+'&t='+new Date().getTime());
 }

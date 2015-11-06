@@ -23,7 +23,8 @@ $h = 790;
 <input type='button' class='control' id='red' value='Red'/>
 <input type='button' class='control' id='green' value='Green'/>
 <input type='button' class='control' id='blue' value='Blue'/>
-<input type='button' class='control' id='purple' value='Purple'/><br>
+<input type='button' class='control' id='purple' value='Purple'/>
+<span class="pull-right"><input type='button' class='control' id='refresh' value='Refresh Live View'/></span><br>
 <?php
 	$colours = array('red', 'green', 'blue', 'purple');
 	foreach($colours as $colour){
