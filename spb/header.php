@@ -11,16 +11,16 @@
 </head>
 <body>
 <div class="container-fluid orange">
-	<nav class="navbar navbar-orange navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-		<a class="navbar-brand" href="#">ShitpostBot 5000</a>
-		</div>
-		<div>
-		<ul class="nav navbar-nav">
-			<li><a href="#">Home</a></li>
-			
-			<li class="dropdown">
+<nav class="navbar navbar-orange navbar-fixed-top">
+<div class="container">
+	<div class="navbar-header">
+	<a class="navbar-brand" href="#">ShitpostBot 5000</a>
+	</div>
+	<div>
+	<ul class="nav navbar-nav">
+		<li><a href="#">Home</a></li>
+		
+		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Submit
 			<span class="caret"></span></a>
 			<ul class="dropdown-menu">
@@ -30,16 +30,16 @@
 			</li>
 			
 			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Gallery
-			<span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li><a href="#">Source Image</a></li>
-				<li><a href="#">Template</a></li>
-			</ul>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Gallery
+				<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Source Image</a></li>
+					<li><a href="#">Template</a></li>
+				</ul>
 			</li>
 		</ul>
-		</div>
 	</div>
-	</nav>
-	<div class="body">
-	<div class="boxed">
+</div>
+</nav>
+<div class="body">
+<div class="boxed">

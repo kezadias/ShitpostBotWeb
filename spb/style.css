@@ -20,6 +20,7 @@
 
 .navbar-orange .navbar-brand {
 	color: #fff;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 .navbar-orange .navbar-brand:hover,
 .navbar-orange .navbar-brand:focus {
