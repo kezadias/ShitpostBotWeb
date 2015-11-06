@@ -23,6 +23,14 @@ div.row div.help{
 	font-size: 8pt;
 }
 
-div.row div input{
-	min-width: 90px;
+.palette div.col-md-1{
+	width: 105px;
+	background: #ffb646;
+	color: #000000;
+    padding: 5px 5px;
+	cursor: pointer;
+	margin: 0px auto;
+}
+.palette div.col-md-1.active{
+	background: #ff9a00;
 }

@@ -34,3 +34,12 @@
 .navbar-orange .navbar-nav > li > a:focus {
 	background-color: #ffbe5a;
 }
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

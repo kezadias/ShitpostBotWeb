@@ -206,6 +206,11 @@ function registerListeners(){
 		doLiveUpdate();
 	});
 	
+	$('div.tbutton').click(function(){
+		$('div.tbutton').removeClass("active");
+		$(this).addClass("active");
+    });
+	
 	$('#canvas').on('mousedown touchstart', function(event){
 		event.preventDefault(); //disables the text select cursor from showing up
 		isDragging = true;
