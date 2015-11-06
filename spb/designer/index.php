@@ -11,7 +11,7 @@ $h = 790;
 <link rel="stylesheet" href="css/style.css">
 <div class="row">
 	<div class="col-md-6 header">Canvas</div>
-	<div class="col-md-6 header">Live Update</div>
+	<div class="col-md-6 header">Live View</div>
 </div>
 <div class="row">
 	<div class="col-md-6 help">(This is where you draw your boxes)</div>
