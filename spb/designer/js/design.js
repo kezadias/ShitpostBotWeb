@@ -131,10 +131,25 @@ function checkIntersection(x1, y1, x2, y2){
 }
 
 //updates the saved mouse coordinates
-function updateMouseCoords(event){
+function updateMouseCoords(e){
 	var rect = canvas.getBoundingClientRect();
-	mouseX = event.clientX - rect.left;
-	mouseY = event.clientY - rect.top;
+	var clientX = null;
+	var clientY = null;
+	if (e.originalEvent) {
+		if (e.originalEvent.touches && e.originalEvent.touches.length) {
+			var touch = e.originalEvent.touches[0];
+			clientX = touch.pageX - $(document).scrollLeft();
+			clientY = touch.pageY - $(document).scrollTop();
+		}
+	}
+	
+	if(clientX == null){
+		clientX = e.clientX;
+		clientY = e.clientY;
+	}
+	
+	mouseX = clientX - rect.left;
+	mouseY = clientY - rect.top;
 }
 
 function getRectCount(){
@@ -187,20 +202,25 @@ function registerListeners(){
 	
 	$('#clear').click(resetRects);
 	
-	$(canvas).mousedown(function(event) {
+	$('#canvas').on('mousedown touchstart', function(event){
 		event.preventDefault(); //disables the text select cursor from showing up
 		isDragging = true;
 		startDrawingRect(event);
-	})
-	.mousemove(function(event) {
+		return false;
+	});
+	
+	$('#canvas').on('mousemove touchmove', function(event){	
 		event.preventDefault();
 		if (isDragging) {
 			updateDrawingRect(event);
 		}
-	})
-	.mouseup(function() {
+		return false;
+	});
+	
+	$('#canvas').on('mouseup touchend', function(event){
 		isDragging = false;
 		addRectangle();
+		return false;
 	});
 }
 
