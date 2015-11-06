@@ -4,7 +4,7 @@
 $dbfile = '../database/sqlite3.db';
 
 //Image path
-$imgpath = './';
+$imgpath = '';
 
 //Template path
 $tempath = './';

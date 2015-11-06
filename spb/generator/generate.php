@@ -5,7 +5,11 @@ require 'generator.php';
 
 $db = new Database($dbfile);
 
-$img = generate($db, $tempath, $imgpath);
+if(isset($_GET['p'])){
+	$img = generate($db, $tempath, $imgpath, 2, $_GET['p']);
+}else{
+	$img = generateRand($db, $tempath, $imgpath);
+}
 
 if (count(error_get_last())) exit();
 

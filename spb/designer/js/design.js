@@ -231,6 +231,10 @@ function registerListeners(){
 	});
 }
 
+function round(num){
+	return Math.round(num * 10000) / 10000
+}
+
 function format() {
 	var all = rects.slice().sort(function(d, f){ return d[0] - f[0]});
 	var	lst = null;
@@ -245,11 +249,11 @@ function format() {
 		}
 		var ecl = cur[1];
 		if(typeof cur[2] === 'undefined'){
-			var	pos = [ecl[0] / size.x, ecl[1] / size.y,
-					   ecl[2] / size.x, ecl[3] / size.y];
+			var	pos = [round(ecl[0] / size.x), round(ecl[1] / size.y),
+					   round(ecl[2] / size.x), round(ecl[3] / size.y)];
 		} else{
-			var	pos = [ecl[0] / size.x, ecl[1] / size.y,
-					   ecl[2] / size.x, ecl[3] / size.y,
+			var	pos = [round(ecl[0] / size.x), round(ecl[1] / size.y),
+					   round(ecl[2] / size.x), round(ecl[3] / size.y),
 					   cur[2]];
 		}
 		locs.push(pos);
