@@ -35,6 +35,15 @@ function generate($db, $tempath, $imgpath, $imgid, $pos) {
 		$poscount = count($imgpos);
 		list($sx2,$sy2) = imagexy($im2);
 		for ($p = 0; $p < $poscount; $p++) {
+			//colour fill
+			if(count($imgpos[$p]) > 4){
+				list($x1, $y1, $x2, $y2) = $imgpos[$p];
+				list($r, $g, $b) = convertToRGB($imgpos[$p][4]);
+				$colour = imagecolorallocate($img, $r, $g, $b);
+				imagefilledrectangle($img, $x1 * $sx, $y1 * $sy, $x2 * $sx, $y2 * $sy, $colour);
+			}
+			
+			//source image
 			list($x1, $y1, $x2, $y2) = getBestFit($imgpos[$p], $sx2, $sy2, $sx, $sy);
 			imagecopyresized($img, $im2, $x1, $y1, 0, 0, $x2-$x1, $y2-$y1, $sx2, $sy2);
 		}
@@ -80,4 +89,18 @@ function getBestFit($pos, $iw, $ih, $tw, $th){
 	}
 	
 	return array(round($x), round($y), round($x + $nw), round($y + $nh));
+}
+
+function convertToRGB($hex) {
+	if(strlen($hex) == 3) {
+		$r = hexdec(substr($hex,0,1).substr($hex,0,1));
+		$g = hexdec(substr($hex,1,1).substr($hex,1,1));
+		$b = hexdec(substr($hex,2,1).substr($hex,2,1));
+	} else {
+		$r = hexdec(substr($hex,0,2));
+		$g = hexdec(substr($hex,2,2));
+		$b = hexdec(substr($hex,4,2));
+	}
+	
+	return array($r, $g, $b);
 }
