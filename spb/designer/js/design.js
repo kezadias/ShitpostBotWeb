@@ -20,6 +20,9 @@ var size = {};
 
 //is called when the page has finished loading
 function init(width, height){
+	if(isTouchScreen()){
+		$('input.control').css({ 'height': '80px', 'font-size': '24px' });
+	}
 	var scale = maxWidth / width;
 	size.x = width * scale;
 	size.y = height * scale;
@@ -150,6 +153,10 @@ function updateMouseCoords(e){
 	
 	mouseX = clientX - rect.left;
 	mouseY = clientY - rect.top;
+}
+
+function isTouchScreen(){
+	return 'ontouchstart' in document.documentElement;
 }
 
 function getRectCount(){

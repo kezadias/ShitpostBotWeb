@@ -11,19 +11,19 @@ $h = 790;
 <link rel="stylesheet" href="css/style.css">
 <canvas id='canvas' width='625' height='790'></canvas><br>
 
-<input type='button' id='red' value='Red'/>
-<input type='button' id='green' value='Green'/>
-<input type='button' id='blue' value='Blue'/>
-<input type='button' id='purple' value='Purple'/><br>
+<input type='button' class='control' id='red' value='Red'/>
+<input type='button' class='control' id='green' value='Green'/>
+<input type='button' class='control' id='blue' value='Blue'/>
+<input type='button' class='control' id='purple' value='Purple'/><br>
 <?php
 	$colours = array('red', 'green', 'blue', 'purple');
 	foreach($colours as $colour){
-		addCategoriesComboBox($colour."cat");
+		//addCategoriesComboBox($colour."cat", "control");
 	}
 ?><br>
-<input type='button' id='eraser' value='Eraser'/>
-<input type='button' id='clear' value='Clear'/>
-<input type='button' id='undo' value='Undo'/><br><br>
+<input type='button' class='control' id='eraser' value='Eraser'/>
+<input type='button' class='control' id='clear' value='Clear'/>
+<input type='button' class='control' id='undo' value='Undo'/><br><br>
 
 <input id='fillcolourchk' type='checkbox'/>Use Background Fill Colour?<br>
 <input id='fillcolour' class='color'/><br><br>
