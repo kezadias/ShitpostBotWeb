@@ -5,7 +5,10 @@ var maxWidth = 600;
 var canvas;
 var ctx;
 var penId = 1;
-var styles = ["#000000","#ff0000","#00ff00","#0000ff","#5C2A83"];
+var styles =   ["#000000",
+				"#ff2222","#00ff00","#0000ff","#5C2A83", //red green blue purple
+				"#fe7eff","#fff400","#ffb400","#00738b", //pink yellow orange cyan
+				"#2abaca","#787878","#036500","#c10000"];//teal grey dgreen crimson
 
 var isDragging;
 
@@ -191,24 +194,8 @@ function getSelectedFillColour(){
 
 //registers all the click listeners, including the ones for the canvas
 function registerListeners(){
-	$('#red').click(function(){
-		penId = 1;
-	});
-	
-	$('#green').click(function(){
-		penId = 2;
-	});
-	
-	$('#blue').click(function(){
-		penId = 3;
-	});
-	
-	$('#purple').click(function(){
-		penId = 4;
-	});
-	
-	$('#eraser').click(function(){
-		penId = 0;
+	$('.pen').click(function(){
+		penId = $(this).attr('id');
 	});
 	
 	$('#undo').click(undo);

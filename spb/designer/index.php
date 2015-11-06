@@ -10,28 +10,45 @@ $h = 790;
 
 <link rel="stylesheet" href="css/style.css">
 <div class="row">
-  <div class="col-md-6 header">Canvas</div>
-  <div class="col-md-6 header">Live Update</div>
+	<div class="col-md-6 header">Canvas</div>
+	<div class="col-md-6 header">Live Update</div>
 </div>
 <div class="row">
-  <div class="col-md-6 help">(This is where you draw your boxes)</div>
-  <div class="col-md-6 help">(This shows you what the memes will look like)</div>
+	<div class="col-md-6 help">(This is where you draw your boxes)</div>
+	<div class="col-md-6 help">(This shows you what the memes will look like)</div>
 </div>
 <canvas id='canvas'></canvas>
 <img id='liveupdate'/><br>
 
-<input type='button' class='control' id='red' value='Red'/>
-<input type='button' class='control' id='green' value='Green'/>
-<input type='button' class='control' id='blue' value='Blue'/>
-<input type='button' class='control' id='purple' value='Purple'/>
-<span class="pull-right"><input type='button' class='control' id='refresh' value='Refresh Live View'/></span><br>
+<div class="row">
+	<div class="col-md-1"><input type='button' class='control pen' id='1' value='Red'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='2' value='Green'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='3' value='Blue'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='4' value='Purple'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='5' value='Pink'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='6' value='Yellow'/></div>
+	<div class="col-md-6"></div>
+</div>
+<span class="pull-right"><input type='button' class='control' id='refresh' value='Refresh Live View'/></span>
+<div class="row">
+	<div class="col-md-1"><input type='button' class='control pen' id='7' value='Orange'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='8' value='Cyan'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='9' value='Teal'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='10' value='Grey'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='11' value='Dark Green'/></div>
+	<div class="col-md-1"><input type='button' class='control pen' id='12' value='Crimson'/></div>
+	<div class="col-md-6"></div>
+</div>
+<div class="row">
+	<div class="col-md-6"></div>
+</div>
 <?php
 	$colours = array('red', 'green', 'blue', 'purple');
 	foreach($colours as $colour){
 		//addCategoriesComboBox($colour."cat", "control");
 	}
 ?><br>
-<input type='button' class='control' id='eraser' value='Eraser'/>
+<input type='button' class='control pen' id='0' value='Eraser'/>
 <input type='button' class='control' id='clear' value='Clear'/>
 <input type='button' class='control' id='undo' value='Undo'/><br><br>
 

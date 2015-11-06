@@ -19,6 +19,10 @@ div.row div.header{
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-div.row div{
+div.row div.help{
 	font-size: 8pt;
+}
+
+div.row div input{
+	min-width: 90px;
 }
