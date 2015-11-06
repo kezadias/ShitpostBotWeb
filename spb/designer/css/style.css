@@ -8,3 +8,17 @@
 	white-space: pre; 
 	font-family: monospace; 
 }
+
+div.row div{
+	text-align: center;
+}
+
+div.row div.header{
+	text-transform: uppercase;
+	font-size: 20pt;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+div.row div{
+	font-size: 8pt;
+}
