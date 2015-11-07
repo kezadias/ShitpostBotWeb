@@ -104,3 +104,5 @@ function convertToRGB($hex) {
 	
 	return array($r, $g, $b);
 }
+
+?>
