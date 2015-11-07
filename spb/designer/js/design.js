@@ -1,6 +1,7 @@
 var minRectSize = 15;
 var maxRectCount = 20;
 var maxWidth = 600;
+var intersectLeniency = 100;
 
 var canvas;
 var ctx;
@@ -134,7 +135,7 @@ function checkIntersection(x1, y1, x2, y2){
 		var rect = rects[p][1];
 		var xOverlap = Math.max(0, Math.min(x2, rect[2]) - Math.max(x1, rect[0]));
 		var yOverlap = Math.max(0, Math.min(y2, rect[3]) - Math.max(y1, rect[1]));
-		if(xOverlap * yOverlap > 1000){
+		if(xOverlap * yOverlap > intersectLeniency){
 			return true;
 		}
 	}
