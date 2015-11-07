@@ -20,6 +20,7 @@ $h = 790;
 <canvas id='canvas'></canvas>
 <img id='liveupdate'/><br>
 
+<p class='help' style='width: 600px'>Use different colours for different images, and the same colour in multiple places to have the same image used across them all</p>
 <div class="row palette">
 	<div class="col-md-1 tbutton pen noselect active" id='1'>Red</div>
 	<div class="col-md-1 tbutton pen noselect" id='2'>Green</div>
