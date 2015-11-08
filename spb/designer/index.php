@@ -63,4 +63,4 @@ $(document).ready(function(){
 	//so SIT YOUR ASSES DOWN and wait for everything else to be in place
 });
 </script>
-<?php include('../footer.php');
+<?php include('../footer.php'); ?>

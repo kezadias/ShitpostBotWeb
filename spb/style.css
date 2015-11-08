@@ -44,3 +44,7 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+#upload{
+	padding: 5px;
+}
