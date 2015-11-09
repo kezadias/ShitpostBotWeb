@@ -6,8 +6,8 @@ include('../header.php');
 include('../dataaccess/loader.php');
 ?>
 
-<form action='upload.php' method='post'>
-	<input type='file' id='upload' name='upload' id='upload'/><br>
+<form action='upload.php' method='post' enctype="multipart/form-data">
+	<input type='file' id='upload' name='upload'></input><br>
 	
 	<input type='radio' name='type' id='template' value='template' checked='true'/>
 		<label for='template'> Template</label><br>
@@ -15,7 +15,7 @@ include('../dataaccess/loader.php');
 	<input type='radio' name='type' id='source' value='source'/>
 		<label for='source'> Source Image</label><br><br>
 		
-	<input type='submit' value='Upload'/>
+	<input type='submit' name='submit' value='Upload'></input>
 </form>
 
 <script src="js/validation.js"></script>
