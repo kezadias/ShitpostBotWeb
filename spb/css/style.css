@@ -61,7 +61,7 @@
     user-select: none;
 }
 
-#upload{
+#upload, #overlay{
 	padding: 5px;
 }
 
@@ -102,4 +102,9 @@ div.row div.header{
 
 .overlay{
 	padding-left: 20px;
+}
+
+#upload-error{
+	font-size: 15pt;
+	color: #d00;
 }

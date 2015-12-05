@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+{% if error != 'notset' %}
+  <p id='upload-error'>Upload Error: {{ error }}</p>
+{% endif %}
 <form action='upload.php' method='post' enctype="multipart/form-data">
 	<input type='file' id='upload' name='upload'></input><br>
   
