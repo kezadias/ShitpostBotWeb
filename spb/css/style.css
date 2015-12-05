@@ -83,3 +83,19 @@ div.row div.header{
 	font-size: 20pt;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+
+.sublabel{
+	color: #444;
+}
+
+.hidden{
+	display: none;
+}
+
+.validation-error{
+	background: #fee;
+}
+
+.overlay{
+	padding-left: 20px;
+}

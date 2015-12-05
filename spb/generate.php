@@ -1,7 +1,7 @@
 <?php
 require 'generator/generator.php';
 
-if(isset($_GET['p'])){
+if(isset($_GET['p']) /*& isset($_SESSION['activeImg'])*/){
 	$generator = new ImageGenerator('img/designer');
 	$template = 'img.png';
 	$pos = $_GET['p'];

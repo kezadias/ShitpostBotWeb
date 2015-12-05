@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action='upload.php' method='post' enctype="multipart/form-data">
+	<input type='file' id='upload' name='upload'></input><br>
+  
+	<input type='radio' class='type' name='type' id='template' value='template' checked='true'/>
+		<label for='template'> Template</label>&nbsp;&nbsp;
+    
+	<input type='radio' class='type' name='type' id='source' value='source'/>
+		<label for='source'> Source Image</label><br>
+  
+  <div class='overlay'>
+    <p>
+      <div class='sublabel'>Template Overlay (Optional)</div>
+      <input type='file' id='overlay' name='overlay'></input>
+    </p>
+  </div><br>
+		
+	<input type='submit' name='submit' value='Upload'></input>
+</form>
+
+<script src="js/submit-validation.js"></script>
+
+{% endblock %}
