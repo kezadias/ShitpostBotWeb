@@ -41,12 +41,12 @@ class ImageGenerator{
 		$img = self::openimage($t6ePath);
 		list($sx, $sy) = self::imagexy($img);
 	
-		for ($i = 0; $i < $imgcount; $i++) {
+		for ($i = 0; $i < $imgcount; $i++){
 			$imgpos = $data[$i];
 			$im2 = self::openimage($imgs[$i]);
 			$poscount = count($imgpos);
 			list($sx2,$sy2) = self::imagexy($im2);
-			for ($p = 0; $p < $poscount; $p++) {
+			for ($p = 0; $p < $poscount; $p++){
 				//colour fill
 				if(count($imgpos[$p]) > 4){
 					list($x1, $y1, $x2, $y2) = $imgpos[$p];
@@ -57,9 +57,18 @@ class ImageGenerator{
 				
 				//source image
 				list($x1, $y1, $x2, $y2) = self::getBestFit($imgpos[$p], $sx2, $sy2, $sx, $sy);
-				imagecopyresized($img, $im2, $x1, $y1, 0, 0, $x2-$x1, $y2-$y1, $sx2, $sy2);
+				imagecopyresampled($img, $im2, $x1, $y1, 0, 0, $x2-$x1, $y2-$y1, $sx2, $sy2);
 			}
 			imagedestroy($im2);
+		}
+		
+		$code = pathinfo($template, PATHINFO_FILENAME);
+		$overlayPath = $this->t6ePath."/$code-overlay.png";
+		if(file_exists($overlayPath)){
+			$overlay = self::openimage($overlayPath);
+			list($overlaysx, $overlaysy) = self::imagexy($overlay);
+			imagecopyresampled($img, $overlay, 0, 0, 0, 0, $sx, $sy, $overlaysx, $overlaysy);
+			imagedestroy($overlay);
 		}
 		return $img;
 	}
