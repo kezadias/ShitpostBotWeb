@@ -1,13 +1,6 @@
-<?php
-$GlOBALS['title'] = 'Template Designer';
-$GlOBALS['style'] = '../style.css';
-include('../header.php');
+{% extends "base.html" %}
 
-include("../dataaccess/loader.php");
-$w = 625;
-$h = 790;
-?>
-
+{% block content %}
 <link rel="stylesheet" href="css/style.css">
 <div class="row">
 	<div class="col-md-6 header">Canvas</div>
@@ -54,13 +47,13 @@ $h = 790;
 <div id='rectlist'></div><br>
 <div id='log'></div>
 
-<script type="text/javascript" src="jscolor/jscolor.js"></script>
+<script type="text/javascript" src="js/jscolor/jscolor.js"></script>
 <script src="js/design.js"></script>
 <script>
 $(document).ready(function(){
-	init(<?="$w, $h"?>); //before any of you whinge about this line of code, THIS IS TEMPORARY
-	//THIS SHIT WILL BE REPLACED BY AJAX
-	//so SIT YOUR ASSES DOWN and wait for everything else to be in place
+	init({{ w }}, {{ h }}); //before any of you whinge about this line of code, THIS IS TEMPORARY
+                          //THIS SHIT WILL BE REPLACED BY AJAX
+                          //so SIT YOUR ASSES DOWN and wait for everything else to be in place
 });
 </script>
-<?php include('../footer.php'); ?>
+{% endblock %}

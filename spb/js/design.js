@@ -265,5 +265,5 @@ function format() {
 }
 
 function doLiveUpdate(){
-	$('#liveupdate').attr("src", "../generator/generate.php?p="+JSON.stringify(format())+'&t='+new Date().getTime());
+	$('#liveupdate').attr("src", "generate.php?p="+JSON.stringify(format())+'&t='+new Date().getTime());
 }

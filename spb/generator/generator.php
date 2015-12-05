@@ -1,5 +1,5 @@
 <?php
-require '../dataaccess/database.php';
+require 'dataaccess/database.php';
 
 function imagexy($img) {
 	return array(imagesx($img), imagesy($img));

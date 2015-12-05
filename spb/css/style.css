@@ -1,0 +1,85 @@
+.help{
+	font-size: 8pt;
+}
+
+.palette div.col-md-1{
+	width: 105px;
+	background: #ffb646;
+	color: #000000;
+    padding: 5px 5px;
+	cursor: pointer;
+	margin: 0px auto;
+}
+.palette div.col-md-1.active{
+	background: #ff9a00;
+}
+
+.orange{
+	background-color: #fff7ec;
+}
+
+.body{
+	padding-top: 70px;
+}
+
+.boxed{
+	width: 1235px;
+	margin: auto auto;
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 4px;
+}
+
+.navbar-orange {
+	background-color: #ffb646;
+}
+
+.navbar-orange .navbar-brand {
+	color: #fff;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.navbar-orange .navbar-brand:hover,
+.navbar-orange .navbar-brand:focus {
+	background-color: #ffbe5a;
+}
+
+.navbar-orange .navbar-nav > li > a {
+	color: #333;
+}
+
+.navbar-orange .navbar-nav > li > a:hover,
+.navbar-orange .navbar-nav > li > a:focus {
+	background-color: #ffbe5a;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#upload{
+	padding: 5px;
+}#canvas {
+	background: url(../img/img.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#log { 
+	white-space: pre; 
+	font-family: monospace; 
+}
+
+div.row div{
+	text-align: center;
+}
+
+div.row div.header{
+	text-transform: uppercase;
+	font-size: 20pt;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
