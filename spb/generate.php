@@ -1,14 +1,17 @@
 <?php
-
-require 'config/config.php';
 require 'generator/generator.php';
 
-$db = new Database($dbfile);
-
 if(isset($_GET['p'])){
-	$img = generate($db, $tempath, $imgpath, 1, $_GET['p']);
+	$generator = new ImageGenerator('img/designer');
+	$template = 'img.png';
+	$pos = $_GET['p'];
+	$img = $generator->generate($template, $pos);
 }else{
-	$img = generateRand($db, $tempath, $imgpath);
+	$generator = new ImageGenerator('img/accepted');
+	$template = $generator->getRandomTemplate();
+	$t6eCode = pathinfo($template, PATHINFO_FILENAME);
+	$pos = file_get_contents("img/accepted/t6e/$t6eCode.json");
+	$img = $generator->generate($template, $pos);
 }
 
 if (count(error_get_last())) exit();
