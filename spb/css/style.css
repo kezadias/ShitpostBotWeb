@@ -63,10 +63,14 @@
 
 #upload{
 	padding: 5px;
-}#canvas {
-	background: url(../img/designer/t6e/img.png);
+}
+
+#canvas {
 	background-repeat: no-repeat;
-	background-size: cover;
+	-webkit-background-size: cover;
+    -moz-background-size: cover; 
+    -o-background-size: cover;
+    background-size: cover;  
 }
 
 #log { 

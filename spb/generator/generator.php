@@ -1,14 +1,16 @@
 <?php
 class ImageGenerator{
 	
-	private $contentPath;
+	private $srcPath;
+	private $t6ePath;
 	
-	function __construct($contentPath){
-		$this->contentPath = $contentPath;
+	function __construct($srcPath, $t6ePath){
+		$this->srcPath = $srcPath;
+		$this->t6ePath = $t6ePath;
 	}
 	
 	function getRandomTemplate(){
-		$templates = glob($this->contentPath.'/t6e/*.{jpg,png}', GLOB_BRACE);
+		$templates = glob($this->t6ePath.'/*.{jpg,png}', GLOB_BRACE);
 		$index = mt_rand(0, count($templates) - 1);
 		return pathinfo($templates[$index], PATHINFO_BASENAME);
 	}
@@ -22,7 +24,7 @@ class ImageGenerator{
 	}
 	
 	static function openimage($file) {
-		if (self::getending($file) == 'png') {
+		if(self::getending($file) == 'png'){
 			return imagecreatefrompng($file);
 		}
 		return imagecreatefromjpeg($file);
@@ -31,11 +33,11 @@ class ImageGenerator{
 	function generate($template, $pos) {
 		$data = json_decode($pos);
 		$imgcount = count($data);
-		$images = glob($this->contentPath."/src/*.{jpg,png}", GLOB_BRACE);
+		$images = glob($this->srcPath."/*.{jpg,png}", GLOB_BRACE);
 		shuffle($images);
 		$imgs = array_slice($images, 0, $imgcount);
 	
-		$t6ePath = $this->contentPath.'/t6e/'.$template;
+		$t6ePath = $this->t6ePath.'/'.$template;
 		$img = self::openimage($t6ePath);
 		list($sx, $sy) = self::imagexy($img);
 	

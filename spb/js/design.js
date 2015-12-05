@@ -22,8 +22,11 @@ var rects;
 
 var size = {};
 
+
 //is called when the page has finished loading
-function init(width, height){
+function init(width, height, path){
+	$('#canvas').css({'background': 'url('+path+')',
+					  'background-size': 'cover'});
 	if(isTouchScreen()){
 		$('input.control').css({ 'height': '80px', 'font-size': '24px' });
 	}
@@ -267,3 +270,9 @@ function format() {
 function doLiveUpdate(){
 	$('#liveupdate').attr("src", "generate.php?p="+JSON.stringify(format())+'&t='+new Date().getTime());
 }
+
+$(document).ready(function(){
+	$.get('active-data.php', function(data){
+		init(data.x, data.y, data.path);
+	});
+});

@@ -1,4 +1,7 @@
 <?php
+session_start();
+
+$megabyte = 8000000;
 
 function isValidFileType($type){
 	$type = strtolower($type);
@@ -13,12 +16,11 @@ function isValidFileType($type){
 
 if(isset($_POST["submit"])) {
 	
-	$megabyte = 8000000;
 	
 	$valid = true;
 	$id = uniqid();
 	$type = pathinfo(basename($_FILES["upload"]["name"]), PATHINFO_EXTENSION);
-	$uploadFileDest = "../uploads/$id.$type";
+	$uploadFileDest = "img/pending/t6e/$id.$type";
 	
     if(getimagesize($_FILES["upload"]["tmp_name"]) === false) {
         echo "Not an image";
@@ -32,7 +34,31 @@ if(isset($_POST["submit"])) {
 	}
 	
 	if($valid){
+		$_SESSION['activeTemplate'] = "$id.$type";
+		$_SESSION['activeCode'] = $id;
 		move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadFileDest);
+		header('Location: designer.php');
+	}
+	
+	$valid = true;
+	$type = pathinfo(basename($_FILES["overlay"]["name"]), PATHINFO_EXTENSION);
+	$uploadFileDest = "../uploads/$id.$type";
+	
+	if($_FILES["overlay"]["tmp_name"] == ''){
+		$valid = false;
+	}elseif(getimagesize($_FILES["overlay"]["tmp_name"]) === false) {
+        echo "Overlay not an image";
+        $valid = false;
+    } elseif(!isValidFileType($type)){
+		echo "Overlay a valid filetype";
+        $valid = false;
+	} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
+		echo "Overlay larger than 10 MB";
+		$valid = false;
+	}
+	
+	if($valid){
+		move_uploaded_file($_FILES["overlay"]["tmp_name"], $uploadFileDest);
 	}
 	
 }
