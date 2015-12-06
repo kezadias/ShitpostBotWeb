@@ -22,7 +22,10 @@
 	<div class="col-md-1 tbutton pen noselect" id='6'>Yellow</div>
 	<div class="col-md-6"></div>
 </div>
-<span class="pull-right"><input type='button' class='control' id='refresh' value='Refresh Live View'/></span><br>
+<span class="pull-right"><input type='button' class='control' id='refresh' value='Refresh Live View'/></span><br><br>
+<form action='submit-pos.php' method='post' enctype="multipart/form-data">
+	<span class="pull-right"><input type='submit' name='submit' value='Submit'></input></span>
+</form><br>
 <div class="row palette">
 	<div class="col-md-1 tbutton pen noselect" id='7'>Orange</div>
 	<div class="col-md-1 tbutton pen noselect" id='8'>Cyan</div>
@@ -40,11 +43,6 @@
 <input type='button' class='control' id='undo' value='Undo'/><br><br>
 <input id='fillcolourchk' type='checkbox'/>Use Background Fill Colour?<br>
 <input id='fillcolour' class='color'/><br><br>
-
-<textarea id='json' value=''/></textarea><br>
-
-<div id='rectlist'></div><br>
-<div id='log'></div>
 
 <script type="text/javascript" src="js/jscolor/jscolor.js"></script>
 <script type="text/javascript" src="js/design.js"></script>

@@ -41,7 +41,9 @@ $(document).ready(function(){
 			$('.overlay').removeClass('hidden');
 		} else{
 			$('.overlay').addClass('hidden');
+			$('#overlay').val('');
 		}
 	});
+	
 	
 });
