@@ -22,12 +22,16 @@ if(isset($_POST["submit"])) {
 	$id = uniqid();
 	$type = strtolower(pathinfo(basename($_FILES["upload"]["name"]), PATHINFO_EXTENSION));
 	$uploadFileDest = "img/$dir/$id.$type";
+	$size = @getimagesize($_FILES["upload"]["tmp_name"]);
 	$error = '';
 	
-    if(getimagesize($_FILES["upload"]["tmp_name"]) === false) {
+    if($size === false) {
         $error .= "Main image not a valid image, ";
         $valid = false;
-    } elseif(!isValidFileType($type)){
+    } elseif($size[0] > 2000 || $size[1] > 2000){
+		$error .= "Image larger than 2000px, ";
+		$valid = false;
+	} elseif(!isValidFileType($type)){
 		$error .= "Not a valid filetype, ";
         $valid = false;
 	} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
@@ -35,22 +39,21 @@ if(isset($_POST["submit"])) {
 		$valid = false;
 	}
 	
-	if($valid){
-		$_SESSION['activeTemplate'] = "$id.$type";
-		$_SESSION['activeCode'] = $id;
-	}
-	
 	if($selectedType == 'template'){
 	
-		$type = strtolower(pathinfo(basename($_FILES["overlay"]["name"]), PATHINFO_EXTENSION));
-		$overlayFileDest = "img/uploaded/t6e/$id-overlay.$type";
+		$oType = strtolower(pathinfo(basename($_FILES["overlay"]["name"]), PATHINFO_EXTENSION));
+		$overlayFileDest = "img/uploaded/t6e/$id-overlay.$oType";
+		$size = @getimagesize($_FILES["overlay"]["tmp_name"]);
 		
 		if($_FILES["overlay"]["tmp_name"] == ''){
 			//$valid = false;
-		}elseif(getimagesize($_FILES["overlay"]["tmp_name"]) === false) {
+		}elseif($size === false) {
 			$error .= "Overlay not an image, ";
 			$valid = false;
-		} elseif($type != 'png'){
+		} elseif($size[0] > 2000 || $size[1] > 2000){
+			$error .= "Overlay larger than 2000px, ";
+			$valid = false;
+		} elseif($oType != 'png'){
 			$error .= "Overlay not a valid filetype, ";
 			$valid = false;
 		} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
@@ -61,6 +64,8 @@ if(isset($_POST["submit"])) {
 	}
 	
 	if($valid){
+		$_SESSION['activeTemplate'] = "$id.$type";
+		$_SESSION['activeCode'] = $id;
 		move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadFileDest);
 		if($selectedType == 'template'){
 			move_uploaded_file($_FILES["overlay"]["tmp_name"], $overlayFileDest);
