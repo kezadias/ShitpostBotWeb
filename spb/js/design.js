@@ -265,6 +265,7 @@ function format() {
 }
 
 function doLiveUpdate(){
+	$('#designer-submit').prop('disabled', rects.length == 0);
 	$('#liveupdate').attr("src", "generate.php?p="+JSON.stringify(format())+'&t='+new Date().getTime());
 }
 
