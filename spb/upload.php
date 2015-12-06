@@ -16,7 +16,6 @@ function isValidFileType($type){
 
 $selectedType = $_POST['type'];
 $dir = $selectedType == 'template' ? 'uploaded/t6e' : 'pending/src';
-echo "$selectedType, $dir<br>";
 if(isset($_POST["submit"])) {
 	
 	$valid = true;
