@@ -9,12 +9,12 @@ if(isset($_GET['p']) && isset($_SESSION['activeTemplate'])){
 	$img = $generator->generate($template, $pos);
 	$_SESSION['lastPos'] = $_GET['p'];
 } elseif(isset($_GET['t'])){
-	$generator = new ImageGenerator('img/designer/src', 'img/pending/t6e');
+	$dir = isset($_GET['d']) ? $_GET['d'] : 'accepted';
+	$generator = new ImageGenerator('img/designer/src', "img/$dir/t6e");
 	$template = $_GET['t'];
 	$t6eCode = pathinfo($template, PATHINFO_FILENAME);
-	$pos = file_get_contents("img/accepted/t6e/$t6eCode.json");
+	$pos = file_get_contents("img/$dir/t6e/$t6eCode.json");
 	$img = $generator->generate($template, $pos);
-	$_SESSION['lastPos'] = $_GET['p'];
 }else{
 	/*$generator = new ImageGenerator('img/accepted/src', 'img/accepted/t6e');
 	$template = $generator->getRandomTemplate();

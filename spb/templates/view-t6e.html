@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if isValidItem %}
+<div class="row">
+	<div class="col-md-6 header">Template</div>
+	<div class="col-md-6 header">Example Usage</div>
+</div>
+<img src='{{ img }}' width='600'>
+<img src='{{ meme }}' width='600'><br><br>
+{% if hasOverlay %}
+<div class="row">
+	<div class="col-md-12 header">Overlay</div>
+</div>
+<img class='center' src='{{ overlay }}' width='600'>
+{% endif %}
+{% else %}
+<h2>Template not found.</h2>
+{% endif %}
+
+{% endblock %}

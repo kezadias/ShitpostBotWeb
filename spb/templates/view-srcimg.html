@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if isValidItem %}
+<img class='center' src='{{ img }}' width='1000'>
+{% else %}
+<h2>Image not found.</h2>
+{% endif %}
+
+{% endblock %}
