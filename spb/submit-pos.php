@@ -8,6 +8,14 @@ if(strlen($_SESSION['lastPos']) < 3){
 	header('Location: designer.php');
 	die;
 }
+$boxCount = 0;
+foreach(json_decode($_SESSION['lastPos']) as $boxGroup){
+	$boxCount += count($boxGroup);
+}
+if($boxCount > 20){
+	header('Location: designer.php');
+	die;
+}
 $template = $_SESSION['activeTemplate'];
 $t6eCode = pathinfo($template, PATHINFO_FILENAME);
 file_put_contents("img/pending/t6e/$t6eCode.json", $_SESSION['lastPos']);
