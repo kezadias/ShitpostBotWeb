@@ -22,6 +22,7 @@ var rects;
 
 var size = {};
 
+var keys = {};
 
 //is called when the page has finished loading
 function init(width, height, path){
@@ -231,6 +232,17 @@ function registerListeners(){
 		isDragging = false;
 		addRectangle();
 		return false;
+	});
+
+	$(document).keydown(function (e) {
+		keys[e.which] = true;
+		if(keys.hasOwnProperty(17) && keys.hasOwnProperty(90)){
+			undo();
+		}
+	});
+	
+	$(document).keyup(function (e) {
+		delete keys[e.which];
 	});
 }
 
