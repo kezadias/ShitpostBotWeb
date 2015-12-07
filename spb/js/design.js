@@ -151,8 +151,8 @@ function updateMouseCoords(e){
 	if (e.originalEvent) {
 		if (e.originalEvent.touches && e.originalEvent.touches.length) {
 			var touch = e.originalEvent.touches[0];
-			clientX = touch.pageX - $(document).scrollLeft();
-			clientY = touch.pageY - $(document).scrollTop();
+			clientX = touch.clientX/* - $(document).scrollLeft()*/;
+			clientY = touch.clientY/* - $(document).scrollTop()*/;
 		}
 	}
 	

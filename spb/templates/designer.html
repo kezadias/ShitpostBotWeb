@@ -1,43 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-	<div class="col-md-6 header">Canvas</div>
-	<div class="col-md-6 header">Live View</div>
+<div class="row canvasarea">
+	<div class="col-xs-6 header">Canvas</div>
+	<div class="col-xs-6 header">Live View</div>
 </div>
-<div class="row">
-	<div class="col-md-6 help">(This is where you draw your boxes)</div>
-	<div class="col-md-6 help">(This shows you what the memes will look like)</div>
+<div class="row canvasarea">
+	<div class="col-xs-6 help">(This is where you draw your boxes)</div>
+	<div class="col-xs-6 help">(This shows you what the memes will look like)</div>
 </div>
-<canvas id='canvas'></canvas>
-<img id='liveupdate'/><br>
+<div class="row canvasarea">
+	<div class="col-xs-6"><canvas id='canvas'></canvas></div>
+	<div class="col-xs-6"><img id='liveupdate'/><br></div>
+</div>
+
 
 <p class='help' style='width: 600px'>Use different colours for different images, and the same colour in multiple places to have the same image used across them all</p>
 <div class="row palette">
-	<div class="col-md-1 tbutton pen noselect active" id='1'>Red</div>
-	<div class="col-md-1 tbutton pen noselect" id='2'>Green</div>
-	<div class="col-md-1 tbutton pen noselect" id='3'>Blue</div>
-	<div class="col-md-1 tbutton pen noselect" id='4'>Purple</div>
-	<div class="col-md-1 tbutton pen noselect" id='5'>Pink</div>
-	<div class="col-md-1 tbutton pen noselect" id='6'>Yellow</div>
-	<div class="col-md-6"></div>
+	<div class="col-xs-1 tbutton pen noselect active" id='1'>Red</div>
+	<div class="col-xs-1 tbutton pen noselect" id='2'>Green</div>
+	<div class="col-xs-1 tbutton pen noselect" id='3'>Blue</div>
+	<div class="col-xs-1 tbutton pen noselect" id='4'>Purple</div>
+	<div class="col-xs-1 tbutton pen noselect" id='5'>Pink</div>
+	<div class="col-xs-1 tbutton pen noselect" id='6'>Yellow</div>
+	<div class="col-xs-6"></div>
 </div>
 <form action='submit-pos.php' method='post' enctype="multipart/form-data">
-	<span class="pull-right"><input id='designer-submit' type='submit' name='submit' value='Submit'></input></span>
+	<span class="pull-right"><input id='designer-submit' class='control' type='submit' name='submit' value='Submit'></input></span>
 </form>
 <span class="pull-right"><input type='button' class='control' id='refresh' value='Refresh Live View'/></span><br>
 <div class="row palette">
-	<div class="col-md-1 tbutton pen noselect" id='7'>Orange</div>
-	<div class="col-md-1 tbutton pen noselect" id='8'>Cyan</div>
-	<div class="col-md-1 tbutton pen noselect" id='9'>Teal</div>
-	<div class="col-md-1 tbutton pen noselect" id='10'>Grey</div>
-	<div class="col-md-1 tbutton pen noselect" id='11'>DGreen</div>
-	<div class="col-md-1 tbutton pen noselect" id='12'>Crimson</div>
-	<div class="col-md-6"></div>
+	<div class="col-xs-1 tbutton pen noselect" id='7'>Orange</div>
+	<div class="col-xs-1 tbutton pen noselect" id='8'>Cyan</div>
+	<div class="col-xs-1 tbutton pen noselect" id='9'>Teal</div>
+	<div class="col-xs-1 tbutton pen noselect" id='10'>Grey</div>
+	<div class="col-xs-1 tbutton pen noselect" id='11'>DGreen</div>
+	<div class="col-xs-1 tbutton pen noselect" id='12'>Crimson</div>
+	<div class="col-xs-6"></div>
 </div><br>
 <div class="row palette">
-	<div class="col-md-1 tbutton pen" id='0'>Eraser</div>
-	<div class="col-md-11"></div>
+	<div class="col-xs-1 tbutton pen" id='0'>Eraser</div>
+	<div class="col-xs-11"></div>
 </div><br>
 <input type='button' class='control' id='clear' value='Clear'/>
 <input type='button' class='control' id='undo' value='Undo'/><br><br>

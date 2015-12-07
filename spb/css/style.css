@@ -2,15 +2,16 @@
 	font-size: 8pt;
 }
 
-.palette div.col-md-1{
+.palette div.col-xs-1{
 	width: 105px;
 	background: #ffb646;
 	color: #000000;
     padding: 5px 5px;
 	cursor: pointer;
 	margin: 0px auto;
+	float: left;
 }
-.palette div.col-md-1.active{
+.palette div.col-xs-1.active{
 	background: #ff9a00;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .body{
-	padding-top: 70px;
+	padding-top: 5px;
 }
 
 .boxed{
