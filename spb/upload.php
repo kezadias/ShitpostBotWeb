@@ -14,6 +14,26 @@ function isValidFileType($type){
 	return false;
 }
 
+function isPng($filepath){
+	try{
+		$img = imagepng($filepath);
+	} catch(Exception $e){
+		return false;
+	}
+	imagedestroy($img);
+	return true;
+}
+
+function isJpeg($filepath){
+	try{
+		$img = imagejpeg($filepath);
+	} catch(Exception $e){
+		return false;
+	}
+	imagedestroy($img);
+	return true;
+}
+
 $selectedType = $_POST['type'];
 $dir = $selectedType == 'template' ? 'uploaded/t6e' : 'pending/src';
 if(isset($_POST["submit"])) {
@@ -34,6 +54,9 @@ if(isset($_POST["submit"])) {
 	} elseif(!isValidFileType($type)){
 		$error .= "Not a valid filetype, ";
         $valid = false;
+	} elseif(!isJpeg() && !isPng()){
+		$error .= "Main image corrupted/not a valid jpg/png, ";
+		$valid = false;
 	} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
 		$error .= "File larger than 10 MB, ";
 		$valid = false;
@@ -45,20 +68,23 @@ if(isset($_POST["submit"])) {
 		$overlayFileDest = "img/uploaded/t6e/$id-overlay.$oType";
 		$size = @getimagesize($_FILES["overlay"]["tmp_name"]);
 		
-		if($_FILES["overlay"]["tmp_name"] == ''){
-			//$valid = false;
-		}elseif($size === false) {
-			$error .= "Overlay not an image, ";
-			$valid = false;
-		} elseif($size[0] > 2000 || $size[1] > 2000){
-			$error .= "Overlay larger than 2000px, ";
-			$valid = false;
-		} elseif($oType != 'png'){
-			$error .= "Overlay not a valid filetype, ";
-			$valid = false;
-		} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
-			$error .= "Overlay larger than 10 MB, ";
-			$valid = false;
+		if($_FILES["overlay"]["tmp_name"] != ''){
+			if($size === false) {
+				$error .= "Overlay not an image, ";
+				$valid = false;
+			} elseif($size[0] > 2000 || $size[1] > 2000){
+				$error .= "Overlay larger than 2000px, ";
+				$valid = false;
+			} elseif($oType != 'png'){
+				$error .= "Overlay not a valid filetype, ";
+				$valid = false;
+			} elseif(!isPng()){
+				$error .= "Overlay corrupted/not a valid jpg/png, ";
+				$valid = false;
+			} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
+				$error .= "Overlay larger than 10 MB, ";
+				$valid = false;
+			}
 		}
 	
 	}
