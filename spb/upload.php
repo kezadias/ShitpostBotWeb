@@ -79,7 +79,7 @@ if(isset($_POST["submit"])) {
 				$error .= "Overlay not a valid filetype, ";
 				$valid = false;
 			} elseif(!isPng()){
-				$error .= "Overlay corrupted/not a valid jpg/png, ";
+				$error .= "Overlay corrupted/not a valid png, ";
 				$valid = false;
 			} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
 				$error .= "Overlay larger than 10 MB, ";
