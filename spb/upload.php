@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 $megabyte = 8000000;
 
 function isValidFileType($type){
