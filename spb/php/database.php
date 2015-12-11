@@ -199,7 +199,7 @@ class Database{
 		
 		if($this->canUserReviewMemes()){
 			$time = time();
-			$userId = $_SESSION['login-id']
+			$userId = $_SESSION['login-id'];
 			$query = "UPDATE $tableName SET acceptedBy = ?, timeAccepted = ? WHERE $fieldName = ?";
 			$this->query($query, array($userId, $time, $id),
 								array(SQLITE3_TEXT, SQLITE3_INTEGER, SQLITE3_TEXT));
@@ -210,11 +210,15 @@ class Database{
 	}
 	
 	public function acceptSourceImage($sourceId){
-		return $this->acceptImage('SourceImages', 'sourceId', $sourceId)
+		return $this->acceptImage('SourceImages', 'sourceId', $sourceId);
 	}
 	
 	public function acceptTemplate($templateId){
-		return $this->acceptImage('Templates', 'templateId', $templateId)
+		return $this->acceptImage('Templates', 'templateId', $templateId);
+	}
+	
+	public function close(){
+		$this->db->close();
 	}
 	
 }
