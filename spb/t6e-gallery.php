@@ -15,4 +15,5 @@ $items = array_slice($items, ($page-1) * $ITEMS_PER_PAGE, $ITEMS_PER_PAGE);
 $pageCount = max(ceil($totalItemCount / $ITEMS_PER_PAGE), 1);
 $page = min($page, $pageCount);
 echo $twig->render('gallery.html', array('items' => $items, 'currentPage' => $page, 'pageCount' => $pageCount));
+$db->close();
 ?>

@@ -13,4 +13,5 @@ if($validItem){
 }
 
 echo $twig->render('view-t6e.html', array('title' => 'Template', 'isValidItem' => $validItem, 'img' => $img, 'meme' => $meme, 'hasOverlay' => $hasOverlay, 'overlay' => $overlay));
+$db->close();
 ?>

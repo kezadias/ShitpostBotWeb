@@ -7,4 +7,5 @@ if($validItem){
 }
 
 echo $twig->render('view-srcimg.html', array('title' => 'Source Image', 'isValidItem' => $validItem, 'img' => $img));
+$db->close();
 ?>

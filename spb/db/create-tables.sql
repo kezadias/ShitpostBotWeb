@@ -20,7 +20,9 @@ CREATE TABLE Templates(
 	positions TEXT,
 	timeAdded INT,
 	timeAccepted INT,
-	FOREIGN KEY(userId) REFERENCES Users(userId)
+	acceptedBy TEXT,
+	FOREIGN KEY(userId) REFERENCES Users(userId),
+	FOREIGN KEY(acceptedBy) REFERENCES Users(userId)
 );
 
 CREATE TABLE SourceImages(
@@ -29,7 +31,9 @@ CREATE TABLE SourceImages(
 	filetype TEXT,
 	timeAdded INT,
 	timeAccepted INT,
-	FOREIGN KEY(userId) REFERENCES Users(userId)
+	acceptedBy TEXT,
+	FOREIGN KEY(userId) REFERENCES Users(userId),
+	FOREIGN KEY(acceptedBy) REFERENCES Users(userId)
 );
 
 CREATE TABLE TemplateRatings(
