@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form id='login-signup' action='{{ actionpage }}' method='post' enctype="multipart/form-data">
+  Username<br>
+  <input type='text' name='spb-user' id='spb-user'/><br><br>
+  
+  Password<br>
+  <input type='password' name='spb-pass' id='spb-pass'/><br><br>
+  
+  <input type='submit' value='Submit'/>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="js/login-signup.js"></script>
+{% endblock %}

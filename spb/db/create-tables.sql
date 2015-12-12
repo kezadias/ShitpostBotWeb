@@ -18,22 +18,24 @@ CREATE TABLE Templates(
 	filetype TEXT,
 	overlayFiletype TEXT,
 	positions TEXT,
+	reviewState TEXT DEFAULT 'p',
 	timeAdded INT,
-	timeAccepted INT,
-	acceptedBy TEXT,
+	timeReviewed INT,
+	reviewedBy TEXT,
 	FOREIGN KEY(userId) REFERENCES Users(userId),
-	FOREIGN KEY(acceptedBy) REFERENCES Users(userId)
+	FOREIGN KEY(reviewedBy) REFERENCES Users(userId)
 );
 
 CREATE TABLE SourceImages(
 	sourceId TEXT PRIMARY KEY,
 	userId TEXT,
 	filetype TEXT,
+	reviewState TEXT DEFAULT 'p',
 	timeAdded INT,
-	timeAccepted INT,
-	acceptedBy TEXT,
+	timeReviewed INT,
+	reviewedBy TEXT,
 	FOREIGN KEY(userId) REFERENCES Users(userId),
-	FOREIGN KEY(acceptedBy) REFERENCES Users(userId)
+	FOREIGN KEY(reviewedBy) REFERENCES Users(userId)
 );
 
 CREATE TABLE TemplateRatings(

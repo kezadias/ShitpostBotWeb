@@ -37,6 +37,15 @@
 				<li><a href="t6e-gallery.php">Template</a></li>
 			</ul>
 		</li>
+    
+    {% if db.isLoggedIn %}
+    <li><a href="profile.php?u={{ db.userId }}">Profile</a></li>
+    <li><a style='cursor: pointer' id='logout'>Logout</a></li>
+    <li><a id='username-label'>Logged in as {{ me.username|e }}</a></li>
+    {% else %}
+    <li><a href="login.php">Login</a></li>
+    <li><a href="signup.php">Sign Up</a></li>
+    {% endif %}
 	</ul>
 </div>
 </div>
@@ -56,4 +65,7 @@
 </div>
 </div>
 </body>
+
+<script type="text/javascript" src="js/scripts.js"></script>
+{% block scripts %}{% endblock %}
 </html>

@@ -24,7 +24,9 @@ class Database{
 	}
 	
 	public function resultHasRows($result){
-		return $result->fetchArray() !== false;
+		$hasRow = $result->fetchArray();
+		$result->reset();
+		return $hasRow !== false;
 	}
 	
 	public function queryHasRows($query, $values, $types){
@@ -32,8 +34,15 @@ class Database{
 	}
 	
 	public function addUser($username, $password){
+		if(!isset($_SESSION['lastSignUp'])){
+			$_SESSION['lastSignUp'] = 0;
+		}
+		$time = time();
+		if($time - $_SESSION['lastSignUp'] < 180){
+			return ';failed-too-fast'.($time-$_SESSION['lastSignUp']);
+		}
 		if($this->queryHasRows("SELECT username FROM Users WHERE username = ?", array($username), array(SQLITE3_TEXT))){
-			return 'username-taken';
+			return ';failed-username-taken';
 		}
 		$userId = uniqid();
 		$salt = bin2hex(openssl_random_pseudo_bytes(8));
@@ -41,16 +50,17 @@ class Database{
 		$this->query("INSERT INTO Users VALUES(?, ?, ?, ?)",
 					array($userId, $username, $salt, $hash),
 					array_fill(0, 4, SQLITE3_TEXT));
+		$_SESSION['lastSignUp'] = $time;
 		return ';success';
 	}
 	
 	public function addAdmin($userId, $canReview, $canMakeAdmin){
 		if(!$this->queryHasRows("SELECT userId FROM Users WHERE userId = ?", array($userId), array(SQLITE3_TEXT))){
-			return 'user-doesnt-exist';
+			return ';failed-user-doesnt-exist';
 		}
 		
 		if($this->queryHasRows("SELECT userId FROM Admins WHERE userId = ?", array($userId), array(SQLITE3_TEXT))){
-			return 'user-already-admin';
+			return ';failed-user-already-admin';
 		}
 		
 		$canReview = $canReview ? 'y' : 'n';
@@ -59,6 +69,10 @@ class Database{
 					array($userId, $canReview, $canMakeAdmin),
 					array_fill(0, 3, SQLITE3_TEXT));
 		return ';success';
+	}
+	
+	public function getUserId(){
+		return $_SESSION['login-id'];
 	}
 	
 	public function login($username, $password){
@@ -102,7 +116,8 @@ class Database{
 		}
 		$query = 'SELECT username FROM Users WHERE userId = ?';
 		$result = $this->query($query, array($_SESSION['login-id']),
-										array(SQLITE3_TEXT));
+										array(SQLITE3_TEXT))
+										->fetchArray();
 		return $result['username'];
 	}
 	
@@ -181,7 +196,7 @@ class Database{
 	}
 	
 	public function getRandomAcceptedSourceImages($count){
-		$query = "SELECT sourceId || '.' || filetype AS file FROM SourceImages WHERE timeAccepted IS NOT NULL ORDER BY random() LIMIT ?";
+		$query = "SELECT sourceId || '.' || filetype AS file FROM SourceImages WHERE reviewState = 'a' ORDER BY random() LIMIT ?";
 		$result = $this->query($query, array($count),
 							array(SQLITE3_INTEGER));
 		
@@ -214,7 +229,7 @@ class Database{
 		}
 	}
 	
-	private function acceptImage($tableName, $fieldName, $id){
+	private function reviewImage($tableName, $idFieldName, $state, $id){
 		if(!$this->isLoggedIn()){
 			return ';failed-not-logged-in';
 		}
@@ -222,9 +237,9 @@ class Database{
 		if($this->canUserReviewMemes()){
 			$time = time();
 			$userId = $_SESSION['login-id'];
-			$query = "UPDATE $tableName SET acceptedBy = ?, timeAccepted = ? WHERE $fieldName = ?";
-			$this->query($query, array($userId, $time, $id),
-								array(SQLITE3_TEXT, SQLITE3_INTEGER, SQLITE3_TEXT));
+			$query = "UPDATE $tableName SET reviewedBy = ?, timeReviewed = ?, reviewState = ? WHERE $idFieldName = ?";
+			$this->query($query, array($userId, $time, $state, $id),
+								array(SQLITE3_TEXT, SQLITE3_INTEGER, SQLITE3_TEXT, SQLITE3_TEXT));
 			return ';success';
 		} else{
 			return ';failed-insufficient-permissions';
@@ -232,11 +247,19 @@ class Database{
 	}
 	
 	public function acceptSourceImage($sourceId){
-		return $this->acceptImage('SourceImages', 'sourceId', $sourceId);
+		return $this->acceptImage('SourceImages', 'sourceId', 'a', $sourceId);
 	}
 	
 	public function acceptTemplate($templateId){
-		return $this->acceptImage('Templates', 'templateId', $templateId);
+		return $this->acceptImage('Templates', 'templateId', 'a', $templateId);
+	}
+	
+	public function denySourceImage($sourceId){
+		return $this->acceptImage('SourceImages', 'sourceId', 'd', $sourceId);
+	}
+	
+	public function denyTemplate($templateId){
+		return $this->acceptImage('Templates', 'templateId', 'd', $templateId);
 	}
 	
 	public function close(){

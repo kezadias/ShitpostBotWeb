@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="{{ user.isAdmin ? 'admin' }} title" {{ user.isAdmin ? 'title="This user is an admin"' }}>
+  {% if isLoggedIn and me.userId == user.userId %}
+    Your profile
+  {% else %}
+    {{ user.username|e }}'s Profile
+  {% endif %}
+</h1>
+<h2>Templates</h2>
+{% for t in user.ownTemplates %}
+  <p>t.templateId</p>
+{% else %}
+  No templates found.
+{% endfor %}
+
+<h2>Source Images</h2>
+{% for s in user.ownSourceImages %}
+  <p>s.sourceId</p>
+{% else %}
+  No source images found.
+{% endfor %}
+  
+{% endblock %}

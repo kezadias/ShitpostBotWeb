@@ -150,3 +150,13 @@ img.center{
 	padding-bottom: 15px;
 	padding-left: 15px;
 }
+
+#username-label{
+	font-style: italic;
+	color: #555;
+}
+
+.admin{
+	color: #ea8d00;
+	cursor: help;
+}
