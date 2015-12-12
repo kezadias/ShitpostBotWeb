@@ -9,6 +9,8 @@ require('php/database.php');
 require('php/template.php');
 require('php/source-image.php');
 require('php/userinfo.php');
+require('php/generator.php');
+
 $db = new Database();
 
 $meId = isset($_SESSION['login-id']) ? $_SESSION['login-id'] : 'NONE';

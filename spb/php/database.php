@@ -140,7 +140,7 @@ class Database{
 		return $result['username'];
 	}
 	
-	public function addTemplate($filetype, $pos, $overlayFiletype='NONE'){
+	public function addTemplate($id, $pos, $filetype, $overlayFiletype='NONE'){
 		if(!$this->isLoggedIn()){
 			return ';failed-not-logged-in';
 		}
@@ -148,7 +148,7 @@ class Database{
 		$userId = $_SESSION['login-id'];
 		$timeAdded = time();
 		if($overlayFiletype === 'NONE'){
-			$query = 'INSERT INTO Templates(templateId, userId, filetype, positions, timeAdded) VALUES(?, ?, ?, ?, ?, ?)';
+			$query = 'INSERT INTO Templates(templateId, userId, filetype, positions, timeAdded) VALUES(?, ?, ?, ?, ?)';
 			$this->query($query, array($templateId, $userId, $filetype, $pos, $timeAdded),
 								array(SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_INTEGER ));
 		}else{

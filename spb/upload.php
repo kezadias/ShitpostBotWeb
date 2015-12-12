@@ -34,7 +34,7 @@ function isJpeg($filepath){
 }
 
 $selectedType = $_POST['type'];
-$dir = $selectedType == 'template' ? 'uploaded/t6e' : 'sourceimages';
+$dir = $selectedType == 'template' ? 'temp' : 'sourceimages';
 if(isset($_POST["submit"])) {
 	
 	$valid = true;
@@ -64,8 +64,9 @@ if(isset($_POST["submit"])) {
 	if($selectedType == 'template'){
 	
 		$oType = strtolower(pathinfo(basename($_FILES["overlay"]["name"]), PATHINFO_EXTENSION));
-		$overlayFileDest = "img/uploaded/t6e/$id-overlay.$oType";
+		$overlayFileDest = "img/temp/$id-overlay.$oType";
 		$size = @getimagesize($_FILES["overlay"]["tmp_name"]);
+		$hasOverlay = true;
 		
 		if($_FILES["overlay"]["tmp_name"] != ''){
 			if($size === false) {
@@ -84,14 +85,18 @@ if(isset($_POST["submit"])) {
 				$error .= "Overlay larger than 10 MB, ";
 				$valid = false;
 			}
+		} else{
+			$hasOverlay = false;
 		}
 	
 	}
 	
 	if($valid){
 		if($selectedType == 'template'){
+			$_SESSION['activeId'] = $id;
+			$_SESSION['activeImg'] = $uploadFileDest;
+			$_SESSION['activeOverlay'] = $hasOverlay ? $overlayFileDest : '';
 			move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadFileDest);
-			$_SESSION['activeCode'] = $id;
 			move_uploaded_file($_FILES["overlay"]["tmp_name"], $overlayFileDest);
 			header('Location: designer.php');
 		} else{

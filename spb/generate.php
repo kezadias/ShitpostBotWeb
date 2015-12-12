@@ -1,31 +1,39 @@
 <?php
-session_start();
-require 'generator/generator.php';
+include('php/autoload.php');
 
-if(isset($_GET['p']) && isset($_SESSION['activeTemplate'])){
-	$generator = new ImageGenerator('img/designer/src', 'img/uploaded/t6e');
-	$template = $_SESSION['activeTemplate'];
+if(isset($_GET['p']) && isset($_SESSION['activeImg'])){
+	$generator = new ImageGenerator('img/designer/', '');
+	$template = $_SESSION['activeImg'];
+	$overlay = $_SESSION['activeOverlay'] === '' ? null : $_SESSION['activeOverlay'];
 	$pos = $_GET['p'];
-	$img = $generator->generate($template, $pos);
-	$_SESSION['lastPos'] = $_GET['p'];
+	try{
+		$img = $generator->generate($pos, $template, $overlay);
+		$_SESSION['lastPos'] = $_GET['p'];
+	} catch(Exception $e){
+		$img = imagecreatefrompng('img/error.png');
+	}
 } elseif(isset($_GET['t'])){
-	$dir = isset($_GET['d']) ? $_GET['d'] : 'accepted';
-	$generator = new ImageGenerator('img/designer/src', "img/$dir/t6e");
-	$template = $_GET['t'];
-	$t6eCode = pathinfo($template, PATHINFO_FILENAME);
-	$pos = file_get_contents("img/$dir/t6e/$t6eCode.json");
-	$img = $generator->generate($template, $pos);
+	$generator = new ImageGenerator('img/designer/', 'img/template/');
+	$result = $db->query("SELECT templateId || '.' || filetype AS file, 
+								 CASE WHEN isnull(overlayFiletype) THEN null ELSE templateId || '.' || overlayFiletype AS overlayFile, 
+								 positions AS pos
+						 FROM Templates
+						 WHERE templateId = ?",
+						 array($_GET['t']),
+						 array(SQLITE3_TEXT));
+	if($db->resultHasRows($result)){
+		$row = $result->fetchArray();
+		$templateId = $_GET['t'];
+		$file = $row['file'];
+		$overlayFile = $row['overlayFile'];
+		$pos = $row['pos'];
+		$img = $generator->generate($pos, $file, $overlayFile);
+	} else{
+		$img = imagecreatefrompng('img/error.png');
+	}
 }else{
-	/*$generator = new ImageGenerator('img/accepted/src', 'img/accepted/t6e');
-	$template = $generator->getRandomTemplate();
-	$t6eCode = pathinfo($template, PATHINFO_FILENAME);
-	$pos = file_get_contents("img/accepted/t6e/$t6eCode.json");
-	$img = $generator->generate($template, $pos);
-	*/
 	exit();
 }
-
-if (count(error_get_last())) exit();
 
 header('Content-Type: image/jpg');
 imagejpeg($img);

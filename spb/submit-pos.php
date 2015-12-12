@@ -1,31 +1,33 @@
 <?php
-session_start();
+include('php/autoload.php');
+
+function kill(){
+	$_SESSION['lastPos'] = '[]';
+	header('Location: designer.php');
+	die;
+}
+
 if(!isset($_SESSION['lastPos'])){
-	header('Location: designer.php');
-	die;
+	kill();
 }
-if(strlen($_SESSION['lastPos']) < 3){
-	header('Location: designer.php');
-	die;
+
+if(strlen($_SESSION['lastPos']) < 5){
+	kill(); //there probably aren't any boxes drawn if the json is less than 5 chars long
 }
-$boxCount = 0;
-foreach(json_decode($_SESSION['lastPos']) as $boxGroup){
-	$boxCount += count($boxGroup);
+
+try{
+	json_decode($_SESSION['lastPos']);
+	$json = $_SESSION['lastPos'];
+	$generator = new ImageGenerator('img/designer/', '');
+	$generator->generate($json, $_SESSION['activeImg']);
+} catch(Exception $e){
+	kill();
 }
-if($boxCount > 20){
-	header('Location: designer.php');
-	die;
-}
-$template = $_SESSION['activeTemplate'];
-$t6eCode = pathinfo($template, PATHINFO_FILENAME);
-file_put_contents("img/pending/t6e/$t6eCode.json", $_SESSION['lastPos']);
-rename("img/uploaded/t6e/$template", "img/pending/t6e/$template");
-$code = pathinfo($template, PATHINFO_FILENAME);
-$overlayPath = "img/uploaded/t6e/$code-overlay.png";
-if(file_exists($overlayPath)){
-	rename($overlayPath, "img/pending/t6e/$code-overlay.png");
-}
-session_unset();
-session_destroy();
+
+$templateId = $_SESSION['activeId'];
+$templateFiletype = pathinfo($_SESSION['activeImg'], PATHINFO_EXTENSION);
+$pos = $_SESSION['lastPos'];
+$overlayFiletype = $_SESSION['activeOverlay'] == '' ? 'NONE' : pathinfo($_SESSION['activeOverlay'], PATHINFO_EXTENSION);
+$db->addTemplate($templateId, $pos, $templateFiletype, $overlayFiletype);
 header('Location: success.php');
 ?>
