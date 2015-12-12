@@ -161,18 +161,17 @@ class Database{
 		
 	}
 	
-	public function addSourceImage($filetype){
+	public function addSourceImage($sourceId, $filetype){
 		if(!$this->isLoggedIn()){
 			return ';failed-not-logged-in';
 		}
 		
-		$sourceId = uniqid();
 		$userId = $_SESSION['login-id'];
 		$timeAdded = time();
 		$query = 'INSERT INTO SourceImages(sourceId, userId, filetype, timeAdded) VALUES(?, ?, ?, ?)';
 		$this->query($query, array($sourceId, $userId, $filetype, $timeAdded),
 							array(SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_INTEGER ));
-		return $sourceId;
+		return ';success';
 	}
 	
 	private function addRating($tableName, $fieldName, $id, $positive){

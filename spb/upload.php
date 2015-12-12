@@ -1,4 +1,5 @@
 <?php
+require('php/autoload.php');
 $megabyte = 8000000;
 
 function isValidFileType($type){
@@ -33,7 +34,7 @@ function isJpeg($filepath){
 }
 
 $selectedType = $_POST['type'];
-$dir = $selectedType == 'template' ? 'uploaded/t6e' : 'pending/src';
+$dir = $selectedType == 'template' ? 'uploaded/t6e' : 'sourceimages';
 if(isset($_POST["submit"])) {
 	
 	$valid = true;
@@ -88,14 +89,19 @@ if(isset($_POST["submit"])) {
 	}
 	
 	if($valid){
-		$_SESSION['activeTemplate'] = "$id.$type";
-		$_SESSION['activeCode'] = $id;
-		move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadFileDest);
 		if($selectedType == 'template'){
+			move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadFileDest);
+			$_SESSION['activeCode'] = $id;
 			move_uploaded_file($_FILES["overlay"]["tmp_name"], $overlayFileDest);
 			header('Location: designer.php');
 		} else{
-			header('Location: success.php');
+			$response = $db->addSourceImage($id, $type);
+			if($response == ';success'){
+				move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadFileDest);
+				header('Location: success.php');
+			} else{
+				header('Location: submit.php?e='.urlencode("Database failed with message: $response"));
+			}
 		}
 	} else{
 		header('Location: submit.php?e='.urlencode(substr($error, 0, strlen($error) - 2)));
