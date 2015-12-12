@@ -41,7 +41,7 @@ class Database{
 		$this->query("INSERT INTO Users VALUES(?, ?, ?, ?)",
 					array($userId, $username, $salt, $hash),
 					array_fill(0, 4, SQLITE3_TEXT));
-		return 'success';
+		return ';success';
 	}
 	
 	public function addAdmin($userId, $canReview, $canMakeAdmin){
@@ -49,7 +49,7 @@ class Database{
 			return 'user-doesnt-exist';
 		}
 		
-		if($this->queryHasRows("SELECT userId FROM Users WHERE userId = ?", array($userId), array(SQLITE3_TEXT))){
+		if($this->queryHasRows("SELECT userId FROM Admins WHERE userId = ?", array($userId), array(SQLITE3_TEXT))){
 			return 'user-already-admin';
 		}
 		
@@ -58,12 +58,12 @@ class Database{
 		$this->query("INSERT INTO Admins VALUES(?, ?, ?)",
 					array($userId, $canReview, $canMakeAdmin),
 					array_fill(0, 3, SQLITE3_TEXT));
-		return 'success';
+		return ';success';
 	}
 	
 	public function login($username, $password){
 		if(!$this->queryHasRows("SELECT username FROM Users WHERE username = ?", array($username), array(SQLITE3_TEXT))){
-			return 'failed';
+			return ';failed';
 		}
 		
 		$res = $this->query("SELECT userId, salt, password FROM Users WHERE username = ?",
@@ -76,9 +76,9 @@ class Database{
 		$userHash = hash('sha256', $salt.$password);
 		if(hash_equals($storedHash, $userHash)){
 			$_SESSION['login-id'] = $userId;
-			return 'success';
+			return ';success';
 		}else{
-			return 'failed';
+			return ';failed';
 		}
 	}
 	
@@ -96,9 +96,19 @@ class Database{
 		return false;
 	}
 	
+	public function getUsername(){
+		if(!$this->isLoggedIn()){
+			return ';failed-not-logged-in';
+		}
+		$query = 'SELECT username FROM Users WHERE userId = ?';
+		$result = $this->query($query, array($_SESSION['login-id']),
+										array(SQLITE3_TEXT));
+		return $result['username'];
+	}
+	
 	public function addTemplate($filetype, $pos, $overlayFiletype='NONE'){
 		if(!$this->isLoggedIn()){
-			return 'failed-not-logged-in';
+			return ';failed-not-logged-in';
 		}
 		$templateId = uniqid();
 		$userId = $_SESSION['login-id'];
@@ -119,7 +129,7 @@ class Database{
 	
 	public function addSourceImage($filetype){
 		if(!$this->isLoggedIn()){
-			return 'failed-not-logged-in';
+			return ';failed-not-logged-in';
 		}
 		
 		$sourceId = uniqid();
@@ -133,7 +143,7 @@ class Database{
 	
 	private function addRating($tableName, $fieldName, $id, $positive){
 		if(!$this->isLoggedIn()){
-			return 'failed-not-logged-in';
+			return ';failed-not-logged-in';
 		}
 		
 		$userId = $_SESSION['login-id'];
@@ -147,7 +157,7 @@ class Database{
 			$this->query($query, array($userId, $id, $positive),
 								array_fill(0, 3, SQLITE3_TEXT));
 		}
-		return 'success';
+		return ';success';
 	}
 	
 	public function addTemplateRating($templateId, $positive){
@@ -160,6 +170,18 @@ class Database{
 	
 	public function getRandomSourceImages($count){
 		$query = "SELECT sourceId || '.' || filetype AS file FROM SourceImages ORDER BY random() LIMIT ?";
+		$result = $this->query($query, array($count),
+							array(SQLITE3_INTEGER));
+		
+		$output = array();
+		while($row = $result->fetchArray()){
+			array_push($output, $row['file']);
+		}
+		return $output;
+	}
+	
+	public function getRandomAcceptedSourceImages($count){
+		$query = "SELECT sourceId || '.' || filetype AS file FROM SourceImages WHERE timeAccepted IS NOT NULL ORDER BY random() LIMIT ?";
 		$result = $this->query($query, array($count),
 							array(SQLITE3_INTEGER));
 		
@@ -194,7 +216,7 @@ class Database{
 	
 	private function acceptImage($tableName, $fieldName, $id){
 		if(!$this->isLoggedIn()){
-			return 'failed-not-logged-in';
+			return ';failed-not-logged-in';
 		}
 		
 		if($this->canUserReviewMemes()){
@@ -203,9 +225,9 @@ class Database{
 			$query = "UPDATE $tableName SET acceptedBy = ?, timeAccepted = ? WHERE $fieldName = ?";
 			$this->query($query, array($userId, $time, $id),
 								array(SQLITE3_TEXT, SQLITE3_INTEGER, SQLITE3_TEXT));
-			return 'success';
+			return ';success';
 		} else{
-			return 'failed-insufficient-permissions';
+			return ';failed-insufficient-permissions';
 		}
 	}
 	
