@@ -37,13 +37,24 @@ class Database{
 		if(!isset($_SESSION['lastSignUp'])){
 			$_SESSION['lastSignUp'] = 0;
 		}
+		
 		$time = time();
 		if($time - $_SESSION['lastSignUp'] < 180){
-			return ';failed-too-fast'.($time-$_SESSION['lastSignUp']);
+			return ';failed-too-fast:'.($time-$_SESSION['lastSignUp']);
 		}
+		
+		if(!$this->isValid($username)){
+			return ';failed-username-invalid';
+		}
+		
+		if(!$this->isValid($password, 7, 30)){
+			return ';failed-password-invalid';
+		}
+		
 		if($this->queryHasRows("SELECT username FROM Users WHERE username = ?", array($username), array(SQLITE3_TEXT))){
 			return ';failed-username-taken';
 		}
+		
 		$userId = uniqid();
 		$salt = bin2hex(openssl_random_pseudo_bytes(8));
 		$hash = hash('sha256', $salt.$password);
@@ -52,6 +63,14 @@ class Database{
 					array_fill(0, 4, SQLITE3_TEXT));
 		$_SESSION['lastSignUp'] = $time;
 		return ';success';
+	}
+	
+	private function isValid($str, $minLength=5, $maxLength=15){
+		if(strlen($str) < $minLength || strlen($str) > $maxLength){
+			return false;
+		} else{
+			return !preg_match('/[^A-z0-9.\-_]/', $str);
+		}
 	}
 	
 	public function addAdmin($userId, $canReview, $canMakeAdmin){

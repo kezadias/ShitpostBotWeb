@@ -160,3 +160,8 @@ img.center{
 	color: #ea8d00;
 	cursor: help;
 }
+
+.login-help{
+	color: #555;
+	font-size: 8pt;
+}
