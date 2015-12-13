@@ -279,6 +279,46 @@ class Database{
 		return $this->reviewImage('Templates', 'templateId', 'd', $templateId);
 	}
 	
+	public function getTemplates($query, $values, $types){
+		$result = $this->query($query, $values, $types);
+		$templates = array();
+		while($row = $result->fetchArray()){
+			array_push($templates, 
+				new Template(
+					$row['templateId'], 
+					$row['userId'], 
+					$row['filetype'], 
+					$row['overlayFiletype'],  
+					$row['positions'],  
+					$row['reviewState'],  
+					$row['timeAdded'],  
+					$row['timeReviewed'],   
+					$row['reviewedBy']
+				)
+			);
+		}
+		return $templates;
+	}
+	
+	public function getSourceImages($query, $values, $types){
+		$result = $this->query($query, $values, $types);
+		$sourceImages = array();
+		while($row = $result->fetchArray()){
+			array_push($sourceImages, 
+				new SourceImage(
+					$row['sourceId'], 
+					$row['userId'], 
+					$row['filetype'],
+					$row['reviewState'],  
+					$row['timeAdded'],  
+					$row['timeReviewed'],   
+					$row['reviewedBy']
+				)
+			);
+		}
+		return $sourceImages;
+	}
+	
 	public function close(){
 		$this->db->close();
 	}

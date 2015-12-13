@@ -9,6 +9,7 @@ class SourceImage{
 	private $timeReviewed;
 	private $reviewedBy;
 	
+	private $username;
 	private $rating = 0;
 	
 	function __construct($sourceId, $userId, $filetype, $reviewState, $timeAdded, $timeReviewed, $reviewedBy){
@@ -28,6 +29,14 @@ class SourceImage{
 	public function getUserId(){
 		return $this->userId;
 	}
+
+	/*public function getUsername(){
+		if(!isset($username) && isset($GLOBALS['db'])){
+			$db = $GLOBALS['db'];
+			$result = $db->query('SELECT username FROM Users');
+		}
+		return $this->$username;
+	}*/
 
 	public function getFiletype(){
 		return $this->filetype;
