@@ -28,6 +28,12 @@ $templateId = $_SESSION['activeId'];
 $templateFiletype = pathinfo($_SESSION['activeImg'], PATHINFO_EXTENSION);
 $pos = $_SESSION['lastPos'];
 $overlayFiletype = $_SESSION['activeOverlay'] == '' ? 'NONE' : pathinfo($_SESSION['activeOverlay'], PATHINFO_EXTENSION);
-$db->addTemplate($templateId, $pos, $templateFiletype, $overlayFiletype);
-header('Location: success.php');
+$result = $db->addTemplate($templateId, $pos, $templateFiletype, $overlayFiletype);
+if($result === ';success'){
+	$file = pathinfo($_SESSION['activeImg'], PATHINFO_BASENAME);
+	rename('img/temp/'.$file, 'img/template/'.$file);
+	header('Location: success.php');
+} else{
+	header('Location: submit.php?e='.urlencode('Database error: '.$result));
+}
 ?>

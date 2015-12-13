@@ -62,8 +62,8 @@ class ImageGenerator{
 			imagedestroy($im2);
 		}
 		
-		if($overlayImg !== null){
-			$overlayPath = $this->t6ePath."/$overlayImg";
+		if(!is_null($overlayImg)){
+			$overlayPath = $this->t6ePath.$overlayImg;
 			if(file_exists($overlayPath)){
 				$overlay = self::openimage($overlayPath);
 				list($overlaysx, $overlaysy) = self::imagexy($overlay);

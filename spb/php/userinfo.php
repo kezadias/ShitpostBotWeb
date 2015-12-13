@@ -5,7 +5,10 @@ class UserInfo{
 	private $username;
 	private $ownTemplates;
 	private $ownSourceImages;
+	
 	private $isAdmin;
+	private $canReview;
+	private $canMakeAdmin;
 	
 	function __construct($db, $userId){
 		$this->userId = $userId;
@@ -40,8 +43,11 @@ class UserInfo{
 			$template = new SourceImage($sourceId, $userId, $filetype, $timeAdded, $timeReviewed, $reviewedBy);
 			array_push($templates, $template);
 		}
-		
-		$this->isAdmin = $db->queryHasRows('SELECT userId FROM Admins WHERE userId = ?', array($userId), array(SQLITE3_TEXT));
+		$result = $db->query('SELECT canReview, canMakeAdmin FROM Admins WHERE userId = ?', array($userId), array(SQLITE3_TEXT));
+		$this->isAdmin = $db->resultHasRows($result);
+		$row = $result->fetchArray();
+		$this->canReview = $this->isAdmin ? $row['canReview'] === 'y' : false;
+		$this->canMakeAdmin = $this->isAdmin ? $row['canMakeAdmin'] === 'y' : false;
 	}
 	
 	public function getUserId(){
@@ -58,6 +64,14 @@ class UserInfo{
 	
 	public function getOwnSourceImages(){
 		return $this->ownSourceImages;
+	}
+	
+	public function canReview(){
+		return $this->canReview;
+	}
+	
+	public function canMakeAdmin(){
+		return $this->canMakeAdmin;
 	}
 	
 	public function isAdmin(){

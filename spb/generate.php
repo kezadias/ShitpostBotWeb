@@ -15,7 +15,7 @@ if(isset($_GET['p']) && isset($_SESSION['activeImg'])){
 } elseif(isset($_GET['t'])){
 	$generator = new ImageGenerator('img/designer/', 'img/template/');
 	$result = $db->query("SELECT templateId || '.' || filetype AS file, 
-								 CASE WHEN isnull(overlayFiletype) THEN null ELSE templateId || '.' || overlayFiletype AS overlayFile, 
+								 CASE WHEN overlayFiletype IS NULL THEN null ELSE templateId || '.' || overlayFiletype END AS overlayFile, 
 								 positions AS pos
 						 FROM Templates
 						 WHERE templateId = ?",

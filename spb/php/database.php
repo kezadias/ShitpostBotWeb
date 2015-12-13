@@ -140,11 +140,10 @@ class Database{
 		return $result['username'];
 	}
 	
-	public function addTemplate($id, $pos, $filetype, $overlayFiletype='NONE'){
+	public function addTemplate($templateId, $pos, $filetype, $overlayFiletype='NONE'){
 		if(!$this->isLoggedIn()){
 			return ';failed-not-logged-in';
 		}
-		$templateId = uniqid();
 		$userId = $_SESSION['login-id'];
 		$timeAdded = time();
 		if($overlayFiletype === 'NONE'){
@@ -157,7 +156,7 @@ class Database{
 								array(SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_TEXT, SQLITE3_INTEGER ));
 		}
 		
-		return $templateId;
+		return ';success';
 		
 	}
 	

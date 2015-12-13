@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class='title'>Template Review</h1>
+{% if isLoggedIn and me.canReview %}
+  {% if msg is not defined %}
+    <div class="row">
+      <div class="col-xs-4 header">Image</div>
+      {% if overlayFile is not null %}
+        <div class="col-xs-4 header">Overlay</div>
+      {% endif %}
+      <div class="col-xs-4 header">Example</div>
+    </div>
+    <div class="row">
+      {% set url = 'img/template/' ~ file %}
+      <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380&h=500'/></div>
+      {% if overlayFile is not null %}
+        {% set url = 'img/template/' ~ overlayFile %}
+        <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380&h=500'/></div>
+      {% endif %}
+      {% set url = 'generate.php?t=' ~ templateId %}
+      <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380&h=500'/></div>
+    </div>
+    <div class='submitter'>by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
+    {% else %}
+    <h2>No templates found.</h2>
+  {% endif %}
+{% else %}
+<h2>You aren't allowed to do this.</h2>
+{% endif %}
+
+{% endblock %}
