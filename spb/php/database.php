@@ -332,7 +332,7 @@ class Database{
 		$result = $this->query($query, $values, $types);
 		$admins = array();
 		while($row = $result->fetchArray()){
-			array_push($admins, new Admin($row['userId'], $row['canReview'], $row['canMakeAdmin']));
+			array_push($admins, new Admin($row['userId'], $row['canReview'] === 'y', $row['canMakeAdmin'] === 'y'));
 		}
 		return $admins;
 	}

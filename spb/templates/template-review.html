@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 class='title'>Template Review</h1>
-{% if isLoggedIn and me.canReview %}
+{% if isLoggedIn and me.admin is not null and me.admin.canReview %}
   {% if msg is not defined %}
     <div class="row">
       <div class="col-xs-4 header">Image</div>

@@ -41,12 +41,12 @@
     {% if db.isLoggedIn %}
       <li><a href="profile.php?u={{ db.userId }}">Profile</a></li>
       <li><a style='cursor: pointer' id='logout'>Logout</a></li>
-      {% if me.isAdmin %}
+      {% if me.admin is not null %}
         <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-        {% if me.canReview %}
+        {% if me.admin.canReview %}
           <li><a href="template-review.php">Review Templates</a></li>
           <li><a href="source-review.php">Review Source Images</a></li>
         {% endif %}
