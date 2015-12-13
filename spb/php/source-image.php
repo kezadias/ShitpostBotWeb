@@ -28,6 +28,10 @@ class SourceImage{
 	public function getUserId(){
 		return $this->userId;
 	}
+
+	public function getFiletype(){
+		return $this->filetype;
+	}
 	
 	public function getReviewState(){
 		return $this->positions;
@@ -47,7 +51,7 @@ class SourceImage{
 	
 	public function getRating(){
 		if(!isset($this->rating) && isset($GLOBALS['db'])){
-			$this->fetchRating($GLOBALS['db']);
+			$this->rating = $this->fetchRating($GLOBALS['db']);
 		}
 		return $this->rating;
 	}

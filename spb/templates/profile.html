@@ -12,14 +12,20 @@
   </h1>
   <h2>Templates</h2>
   {% for t in user.ownTemplates %}
-    <p>t.templateId</p>
+    <div class='gallery-item'>
+      <a href='view-t6e.php?t={{ t.templateId }}'><img src='resize.php?i={{ t.image|url_encode }}&w=150&h=150'/></a><br>
+      <span class='pull-right rating'>{{t.rating}}</span>
+    </div>
   {% else %}
     No templates found.
   {% endfor %}
   
   <h2>Source Images</h2>
   {% for s in user.ownSourceImages %}
-    <p>s.sourceId</p>
+    <div class='gallery-item'>
+      <a href='view-srcimg.php?i={{ s.sourceId }}'><img src='resize.php?i={{ s.image|url_encode }}&w=150&h=150'/></a><br>
+      <span class='pull-right rating'>{{s.rating}}</span>
+    </div>
   {% else %}
     No source images found.
   {% endfor %}

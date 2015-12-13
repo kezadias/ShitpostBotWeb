@@ -3,7 +3,6 @@ $(document).ready(function(){
 		var id = $(this).attr('code');
 		var type = $(this).attr('type');
 		var state = $(this).attr('state');
-		alert(type+', '+state);
 		$.get('do-review.php?id='+id+'&t='+type+'&s='+state, function(data){
 			if(data == ';success'){
 				location.reload();

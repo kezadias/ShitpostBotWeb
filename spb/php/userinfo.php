@@ -32,7 +32,7 @@ class UserInfo{
 		$this->ownTemplates = $templates;
 		
 		$result = $db->query("SELECT * FROM SourceImages WHERE userId = ? AND reviewState = 'a'", array($userId), array(SQLITE3_TEXT));
-		$templates = array();
+		$sourceImages = array();
 		while($row = $result->fetchArray()){
 			$sourceId = $row['sourceId'];
 			$filetype = $row['filetype'];
@@ -40,9 +40,11 @@ class UserInfo{
 			$timeReviewed = $row['timeReviewed'];
 			$reviewedBy = $row['reviewedBy'];
 			
-			$template = new SourceImage($sourceId, $userId, $filetype, $timeAdded, $timeReviewed, $reviewedBy);
-			array_push($templates, $template);
+			$sourceImage = new SourceImage($sourceId, $userId, $filetype, 'a', $timeAdded, $timeReviewed, $reviewedBy);
+			array_push($sourceImages, $sourceImage);
 		}
+		$this->ownSourceImages = $sourceImages;
+		
 		$result = $db->query('SELECT canReview, canMakeAdmin FROM Admins WHERE userId = ?', array($userId), array(SQLITE3_TEXT));
 		$this->isAdmin = $db->resultHasRows($result);
 		$row = $result->fetchArray();

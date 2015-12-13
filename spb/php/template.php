@@ -68,13 +68,13 @@ class Template{
 	public function getImage(){
 		$id = $this->getTemplateId();
 		$type = $this->getFiletype();
-		return "img/templates/$id.$type";
+		return "img/template/$id.$type";
 	}
 	
 	public function getOverlayImage(){
 		$id = $this->getTemplateId();
 		$type = $this->getOverlayFiletype();
-		return "img/templates/$id-overlay.$type";
+		return "img/template/$id-overlay.$type";
 	}
 	
 	public function fetchRating($db){
