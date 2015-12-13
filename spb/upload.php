@@ -14,23 +14,23 @@ function isValidFileType($type){
 }
 
 function isPng($filepath){
-	try{
-		$img = imagepng($filepath);
-	} catch(Exception $e){
+	$img = @imagecreatefrompng($filepath);
+	if($img === false){
 		return false;
+	} else{
+		imagedestroy($img);
+		return true;
 	}
-	imagedestroy($img);
-	return true;
 }
 
 function isJpeg($filepath){
-	try{
-		$img = imagejpeg($filepath);
-	} catch(Exception $e){
+	$img = @imagecreatefromjpeg($filepath);
+	if($img === false){
 		return false;
+	} else{
+		imagedestroy($img);
+		return true;
 	}
-	imagedestroy($img);
-	return true;
 }
 
 $selectedType = $_POST['type'];
@@ -53,7 +53,7 @@ if(isset($_POST["submit"])) {
 	} elseif(!isValidFileType($type)){
 		$error .= "Not a valid filetype, ";
         $valid = false;
-	} elseif(!isJpeg() && !isPng()){
+	} elseif(!isJpeg($_FILES["upload"]["tmp_name"]) && !isPng($_FILES["upload"]["tmp_name"])){
 		$error .= "Main image corrupted/not a valid jpg/png, ";
 		$valid = false;
 	} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {
@@ -78,7 +78,7 @@ if(isset($_POST["submit"])) {
 			} elseif($oType != 'png'){
 				$error .= "Overlay not a valid filetype, ";
 				$valid = false;
-			} elseif(!isPng()){
+			} elseif(!isPng($_FILES["overlay"]["tmp_name"])){
 				$error .= "Overlay corrupted/not a valid png, ";
 				$valid = false;
 			} elseif ($_FILES["upload"]["size"] > 10 * $megabyte) {

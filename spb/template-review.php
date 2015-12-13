@@ -8,6 +8,6 @@ $row = $db->query("SELECT u.userId as submitterId, u.username as submitterName, 
 				   array(),
 				   array())->fetchArray();
 
-echo $twig->render('templatereview.html', $row === false ? array('msg' => 'No templates found.') : $row);
+echo $twig->render('template-review.html', $row === false ? array('msg' => 'No templates found.') : $row);
 $db->close();
 ?>

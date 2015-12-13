@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class='title'>Source Review</h1>
+{% if isLoggedIn and me.canReview %}
+  {% if msg is not defined %}
+    {% set url = 'img/sourceimages/' ~ file %}
+    <img style='margin: 0 auto;' src='resize.php?i={{ url | url_encode }}&w=600'/>
+    <div class='submitter'>{{sourceId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
+    
+    <button class='review' id='accept' code='{{sourceId}}' type='s' state='a'>Accept</button>
+    <button class='review' id='deny' code='{{sourceId}}' type='s' state='d'>Deny</button>
+    <button class='review-skip' id='skip'>Skip</button>
+  {% else %}
+    <h2>No source images found.</h2>
+  {% endif %}
+{% else %}
+<h2>You aren't allowed to do this.</h2>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="js/review.js"></script>
+{% endblock %}
