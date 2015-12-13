@@ -13,20 +13,26 @@
     </div>
     <div class="row">
       {% set url = 'img/template/' ~ file %}
-      <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380&h=500'/></div>
+      <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380'/></div>
       {% if overlayFile is not null %}
         {% set url = 'img/template/' ~ overlayFile %}
-        <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380&h=500'/></div>
+        <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380'/></div>
       {% endif %}
-      {% set url = 'generate.php?t=' ~ templateId %}
-      <div class="col-xs-4"><img src='resize.php?i={{ url | url_encode }}&w=380&h=500'/></div>
+      <div class="col-xs-4"><img src='generate.php?t={{templateId}}&w=380'/></div>
     </div>
-    <div class='submitter'>by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
-    {% else %}
+    <div class='submitter'>{{templateId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
+    <button class='review' id='accept' code='{{templateId}}' type='t' state='a'>Accept</button>
+    <button class='review' id='deny' code='{{templateId}}' type='t' state='d'>Deny</button>
+    <button class='review-skip' id='skip'>Skip</button>
+  {% else %}
     <h2>No templates found.</h2>
   {% endif %}
 {% else %}
 <h2>You aren't allowed to do this.</h2>
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="js/review.js"></script>
 {% endblock %}

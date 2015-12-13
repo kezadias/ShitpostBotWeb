@@ -264,19 +264,19 @@ class Database{
 	}
 	
 	public function acceptSourceImage($sourceId){
-		return $this->acceptImage('SourceImages', 'sourceId', 'a', $sourceId);
+		return $this->reviewImage('SourceImages', 'sourceId', 'a', $sourceId);
 	}
 	
 	public function acceptTemplate($templateId){
-		return $this->acceptImage('Templates', 'templateId', 'a', $templateId);
+		return $this->reviewImage('Templates', 'templateId', 'a', $templateId);
 	}
 	
 	public function denySourceImage($sourceId){
-		return $this->acceptImage('SourceImages', 'sourceId', 'd', $sourceId);
+		return $this->reviewImage('SourceImages', 'sourceId', 'd', $sourceId);
 	}
 	
 	public function denyTemplate($templateId){
-		return $this->acceptImage('Templates', 'templateId', 'd', $templateId);
+		return $this->reviewImage('Templates', 'templateId', 'd', $templateId);
 	}
 	
 	public function close(){

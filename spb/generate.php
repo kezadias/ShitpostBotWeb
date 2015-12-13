@@ -35,6 +35,17 @@ if(isset($_GET['p']) && isset($_SESSION['activeImg'])){
 	exit();
 }
 
+if(isset($_GET['w']) || isset($_GET['h'])){
+	$fullWidth = imagesx($img);
+	$fullHeight = imagesy($img);
+	$w = isset($_GET['w']) ? $_GET['w'] : $fullWidth * ($_GET['h'] / $fullHeight);
+	$h = isset($_GET['h']) ? $_GET['h'] : $fullHeight * ($_GET['w'] / $fullWidth);
+	$newimg = imagecreatetruecolor($w, $h);
+	imagecopyresampled($newimg, $img, 0, 0, 0, 0, $w, $h, $fullWidth, $fullHeight);
+	imagedestroy($img);
+	$img = $newimg;
+}
+
 header('Content-Type: image/jpg');
 imagejpeg($img);
 imagedestroy($img);

@@ -2,11 +2,6 @@
 ini_set('memory_limit','512M');
 
 function createthumb($name, $target_w, $target_h, $transparency=true, $base64=false) {
-	$newname = explode(".",$name)[0]."_$target_w-$target_h.".explode(".",$name)[1];
-    if(file_exists($newname))
-        @unlink($newname);
-    if(!file_exists($name))
-        return false;
     $arr = explode(".",$name);
     $ext = $arr[count($arr)-1];
 
@@ -16,7 +11,9 @@ function createthumb($name, $target_w, $target_h, $transparency=true, $base64=fa
         $img = @imagecreatefrompng($name);
     } elseif($ext=="gif") {
         $img = @imagecreatefromgif($name);
-    }
+    } else{
+        $img = imagecreatefromjpeg($name);
+	}
 	
     $oldw = imageSX($img);
     $oldh = imageSY($img);
@@ -65,12 +62,17 @@ function createthumb($name, $target_w, $target_h, $transparency=true, $base64=fa
     return $return;
 }
 
-if(!isset($_GET['i']) || !isset($_GET['w']) || !isset($_GET['h'])){
+if(!isset($_GET['i']) || (!isset($_GET['w']) && !isset($_GET['h']))){
+	die();
+}
+
+if(!file_exists($_GET['i'])){
 	die();
 }
 
 $file = urldecode($_GET['i']);
-$w = $_GET['w'];
-$h = $_GET['h'];
+list($fullWidth, $fullHeight) = getimagesize($file);
+$w = isset($_GET['w']) ? $_GET['w'] : $fullWidth * ($_GET['h'] / $fullHeight);
+$h = isset($_GET['h']) ? $_GET['h'] : $fullHeight * ($_GET['w'] / $fullWidth);
 createthumb($file, $w, $h);
 ?>
