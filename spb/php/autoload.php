@@ -8,17 +8,22 @@ $twig = new Twig_Environment($loader);
 require('php/database.php');
 require('php/template.php');
 require('php/source-image.php');
-require('php/userinfo.php');
+require('php/user.php');
+require('php/admin.php');
 require('php/generator.php');
 
 $db = new Database();
-
-$meId = isset($_SESSION['login-id']) ? $_SESSION['login-id'] : 'NONE';
-$isLoggedIn = $meId == 'NONE' ? false : $db->queryHasRows('SELECT * FROM Users WHERE userId = ?', array($meId), array(SQLITE3_TEXT));
-if($isLoggedIn){
-	$me = new UserInfo($db, $meId);
-	$twig->addGlobal('me', $me);
-}
 $twig->addGlobal('db', $db);
+
+$loginId = isset($_SESSION['login-id']) ? $_SESSION['login-id'] : 'NONE';
+$isLoggedIn = false;
+if($loginId !== 'NONE' && $loginId !== ''){
+	$users = $db->getUsers('SELECT * FROM Users WHERE userId = ?', array($loginId), array(SQLITE3_TEXT));
+	if(count($users) > 0){
+		$me = $users[0];
+		$isLoggedIn = true;
+		$twig->addGlobal('me', $me);
+	}
+}
 $twig->addGlobal('isLoggedIn', $isLoggedIn);
 ?>

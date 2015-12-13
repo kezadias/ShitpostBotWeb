@@ -62,6 +62,9 @@ class Template{
 	}
 	
 	public function getRating(){
+		if(!isset($this->rating) && isset($GLOBALS['db'])){
+			$this->rating = $this->fetchRating($GLOBALS['db']);
+		}
 		return $this->rating;
 	}
 	

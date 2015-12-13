@@ -3,7 +3,7 @@
 {% block content %}
 
 {% if userExists %}
-  <h1 class="{{ user.isAdmin ? 'admin' }} title" {{ user.isAdmin ? 'title="This user is an admin"' }}>
+  <h1 class="{{ admin is not null ? 'admin' }} title" {{ admin is not null ? 'title="This user is an admin"' }}>
     {% if isLoggedIn and me.userId == user.userId %}
       Your profile
     {% else %}
@@ -11,7 +11,7 @@
     {% endif %}
   </h1>
   <h2>Templates</h2>
-  {% for t in user.ownTemplates %}
+  {% for t in templates %}
     <div class='gallery-item'>
       <a href='view-t6e.php?id={{ t.templateId }}'><img src='resize.php?i={{ t.image|url_encode }}&w=150&h=150'/></a><br>
       <span class='pull-right rating'>{{t.rating}}</span>
@@ -21,7 +21,7 @@
   {% endfor %}
   
   <h2>Source Images</h2>
-  {% for s in user.ownSourceImages %}
+  {% for s in sourceImages %}
     <div class='gallery-item'>
       <a href='view-srcimg.php?id={{ s.sourceId }}'><img src='resize.php?i={{ s.image|url_encode }}&w=150&h=150'/></a><br>
       <span class='pull-right rating'>{{s.rating}}</span>

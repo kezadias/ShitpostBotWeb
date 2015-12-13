@@ -319,6 +319,24 @@ class Database{
 		return $sourceImages;
 	}
 	
+	public function getUsers($query, $values, $types){
+		$result = $this->query($query, $values, $types);
+		$users = array();
+		while($row = $result->fetchArray()){
+			array_push($users, new User($row['userId'], $row['username']));
+		}
+		return $users;
+	}
+	
+	public function getAdmins($query, $values, $types){
+		$result = $this->query($query, $values, $types);
+		$admins = array();
+		while($row = $result->fetchArray()){
+			array_push($admins, new Admin($row['userId'], $row['canReview'], $row['canMakeAdmin']));
+		}
+		return $admins;
+	}
+	
 	public function close(){
 		$this->db->close();
 	}
