@@ -28,9 +28,8 @@ class Database{
 		if($this->resultHasRows($result)){
 			$row = $result->fetchArray();
 			return $row[key($row)];
-		} else{
-			return false;
 		}
+		return false;
 	}
 	
 	public function resultHasRows($result){
@@ -105,8 +104,18 @@ class Database{
 	}
 	
 	public function login($username, $password){
+		if(!isset($_SESSION['lastLogin'])){
+			$_SESSION['lastLogin'] = 0;
+		}
+		
+		$time = time();
+		if($time - $_SESSION['lastLogin'] < 2){
+			return ';failed-too-fast:'.($time-$_SESSION['lastLogin']);
+		}
+		
+		$_SESSION['lastLogin'] = $time;
 		if(!$this->queryHasRows("SELECT username FROM Users WHERE username = ?", array($username), array(SQLITE3_TEXT))){
-			return ';failed';
+			return ';failed-invalid-credentials';
 		}
 		
 		$res = $this->query("SELECT userId, salt, password FROM Users WHERE username = ?",
@@ -121,7 +130,7 @@ class Database{
 			$_SESSION['login-id'] = $userId;
 			return ';success';
 		}else{
-			return ';failed';
+			return ';failed-invalid-credentials';
 		}
 	}
 	
@@ -183,16 +192,15 @@ class Database{
 		return ';success';
 	}
 	
-	private function addRating($tableName, $fieldName, $id, $positive){
+	public function addRating($tableName, $fieldName, $id, $positive){
 		if(!$this->isLoggedIn()){
 			return ';failed-not-logged-in';
 		}
 		
 		$userId = $_SESSION['login-id'];
-		$positive = $positive ? 'y' : 'n';
-		if($this->queryHasRows("SELECT userId FROM $tableName WHERE userId = ? AND $fieldName = ?", array($userId, $id), array(SQLITE3_TEXT, SQLITE3_TEXT))){
+		if($this->queryHasRows("SELECT $fieldName FROM $tableName WHERE userId = ? AND $fieldName = ?", array($userId, $id), array(SQLITE3_TEXT, SQLITE3_TEXT))){
 			$query = "UPDATE $tableName SET isPositive = ? WHERE userId = ? AND $fieldName = ?";
-			$this->query($query, array($userId, $id, $positive),
+			$this->query($query, array($positive, $userId, $id),
 								array_fill(0, 3, SQLITE3_TEXT));
 		} else{
 			$query = "INSERT INTO $tableName VALUES(?, ?, ?)";
@@ -200,14 +208,6 @@ class Database{
 								array_fill(0, 3, SQLITE3_TEXT));
 		}
 		return ';success';
-	}
-	
-	public function addTemplateRating($templateId, $positive){
-		return addRating('TemplateRatings', 'templateId', $templateId, $positive);
-	}
-	
-	public function addSourceRating($sourceId, $positive){
-		return addRating('SourceRatings', 'sourceId', $sourceId, $positive);
 	}
 	
 	public function getRandomSourceImages($count){
@@ -348,7 +348,7 @@ class Database{
 	}
 	
 	public function getUsername($userId){
-		return $this->scalar('SELECT username FROM Users WHERE userId = ?', array($this->getReviewedBy()), array(SQLITE3_TEXT));
+		return $this->scalar('SELECT username FROM Users WHERE userId = ?', array($userId), array(SQLITE3_TEXT));
 	}
 	
 	public function close(){

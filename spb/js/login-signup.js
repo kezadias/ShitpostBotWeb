@@ -6,7 +6,7 @@ $(document).ready(function(){
 			if(data == ';success'){
 				window.location.href = 'index.php';
 			}else{
-				alert(data);
+				alert(translate(data));
 			}
 		});
 	});

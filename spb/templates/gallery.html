@@ -4,8 +4,19 @@
 
 {% for item in items %}
 <div class='gallery-item'>
-  <a href='{{ item.link }}'><img src='resize.php?i={{ item.img|url_encode }}&w=150&h=150'/></a><br>
-  <span class='pull-right rating'>{{ item.rating }}</span>
+
+  <a href='{{ item.link }}'><img src='resize.php?i={{ item.img|url_encode }}&w=160&h=160'/></a><br>
+  
+  <span class='submitter'>
+    <a href='profile.php?u={{ item.submitter.userId }}'>{{ item.submitter.username }}</a>
+  </span>
+  <br>
+  <div class='pull-right rating'>
+    <a class="rate up {{ item.userRating == 'p' and isLoggedIn ? 'selected' }}" type='{{ type }}' rating='y' code='{{ item.id }}'>&uArr;</a>
+      <span class='num'>{{ item.rating }}</span>
+    <a class="rate down {{ item.userRating == 'n' and isLoggedIn  ? 'selected' }}" type='{{ type }}' rating='n' code='{{ item.id }}'>&dArr;</a>
+  </div>
+  
 </div>
 {% else %}
 <h2>No items found.</h2>
@@ -23,4 +34,9 @@
 <a class='pagebtn' href='?p={{ currentPage + 1 }}'>&gt;</a>
 {% endif %}
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="js/rating.js"></script>
 {% endblock %}

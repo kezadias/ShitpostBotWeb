@@ -116,10 +116,10 @@ div.row div.header{
 
 .gallery-item{
 	display: inline-block;
-	margin-left: 30px;
+	margin-left: 18px;
 	margin-bottom: 10px;
 	padding: 5px;
-	padding-bottom: 20px;
+	padding-bottom: 0px;
 	border: 2px solid #999;
 	border-radius: 3px;
 }
@@ -127,18 +127,58 @@ div.row div.header{
 .gallery-item .rating{
 	position: relative;
     left: -20px;
-    bottom: -10px;
-	font-size: 15pt;
+    bottom: -5px;
+}
+
+.gallery-item .rating{
+	position: relative;
+    left: -5px;
+	bottom: 5px;
+}
+
+.gallery-item .rating .rate{
+	cursor: pointer;
+	display: block;
+	position: relative;
+	text-align: center;
+	text-decoration: none !important;
+}
+
+.gallery-item .rating .rate.up{
+    bottom: -5px;
+	color: #0a0;
+}
+
+.gallery-item .rating .rate.down{
+    bottom: 5px;
+	color: #a00;
+}
+
+.gallery-item .rating .rate.selected{
 	font-weight: bold;
 }
 
-.gallery-item .rating.pos{
+.gallery-item .rating .rate.pos.selected{
+	color: #0d0;
+}
+
+.gallery-item .rating .rate.neg.selected{
+	color: #d00;
+}
+
+.gallery-item .rating .num.pos{
 	color: #0d0;
 }
 
 
-.gallery-item .rating.neg{
+.gallery-item .rating .num.neg{
 	color: #d00;
+}
+
+.gallery-item .submitter{
+	position: relative;
+    left: 2px;
+	font-size: 9pt;
 }
 
 .gallery-item a img{

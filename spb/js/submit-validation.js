@@ -32,7 +32,7 @@ $(document).ready(function(){
 		
 		if(!isValid){
 			e.preventDefault();
-			alert(error);
+			alert(translate(error));
 		}
 	});
 	

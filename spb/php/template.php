@@ -11,7 +11,7 @@ class Template{
 	private $timeReviewed;
 	private $reviewedBy;
 	
-	private $rating = 0;
+	private $rating;
 	private $submitterName;
 	private $reviewerName;
 	
@@ -103,10 +103,11 @@ class Template{
 	}
 	
 	private function fetchRating($db){
-		$query = "SELECT count(templateId) AS total FROM TemplateRatings WHERE templateId = ? AND isPositive = ?";
-		$positives = $db->query($query, array($this->templateId, 'y'), array_fill(0, 2, SQLITE_TEXT))->fetchArray()['total'];
-		$negatives = $db->query($query, array($this->templateId, 'n'), array_fill(0, 2, SQLITE_TEXT))->fetchArray()['total'];
-		$this->rating = $positives - $negatives;
+		$query = "SELECT count(*) AS total FROM TemplateRatings WHERE templateId = ? AND isPositive = ?";
+		$id = $this->templateId;
+		$positives = $db->scalar($query, array($id, 'y'), array_fill(0, 2, SQLITE3_TEXT));
+		$negatives = $db->scalar($query, array($id, 'n'), array_fill(0, 2, SQLITE3_TEXT));
+		return $positives - $negatives;
 	}
 	
 }

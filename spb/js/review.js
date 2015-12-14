@@ -7,7 +7,7 @@ $(document).ready(function(){
 			if(data == ';success'){
 				location.reload();
 			}else{
-				alert(data);
+				alert(translate(data));
 			}
 		});
 	});
