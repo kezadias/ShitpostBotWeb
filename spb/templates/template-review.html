@@ -4,6 +4,7 @@
 <h1 class='title'>Template Review</h1>
 {% if isLoggedIn and me.admin is not null and me.admin.canReview %}
   {% if msg is not defined %}
+    <p>{{count}} template{{count > 1 ? 's'}} left in queue.</p>
     <div class="row">
       <div class="col-xs-4 header">Image</div>
       {% if overlayFile is not null %}
@@ -20,7 +21,7 @@
       {% endif %}
       <div class="col-xs-4"><img src='generate.php?t={{templateId}}&w=380'/></div>
     </div>
-    <div class='submitter'>{{templateId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
+    <p><div class='submitter'>{{templateId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div></p>
     <button class='review' id='accept' code='{{templateId}}' type='t' state='a'>Accept</button>
     <button class='review' id='deny' code='{{templateId}}' type='t' state='d'>Deny</button>
     <button class='review-skip' id='skip'>Skip</button>

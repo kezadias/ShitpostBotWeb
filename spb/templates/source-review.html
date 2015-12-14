@@ -4,9 +4,10 @@
 <h1 class='title'>Source Review</h1>
 {% if isLoggedIn and me.admin is not null and me.admin.canReview %}
   {% if msg is not defined %}
+    <p>{{count}} source image{{count > 1 ? 's'}} left in queue.</p>
     {% set url = 'img/sourceimages/' ~ file %}
     <img style='margin: 0 auto;' src='resize.php?i={{ url | url_encode }}&w=600'/>
-    <div class='submitter'>{{sourceId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
+    <p><div class='submitter'>{{sourceId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div></p>
     
     <button class='review' id='accept' code='{{sourceId}}' type='s' state='a'>Accept</button>
     <button class='review' id='deny' code='{{sourceId}}' type='s' state='d'>Deny</button>

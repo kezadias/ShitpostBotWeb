@@ -8,6 +8,7 @@ $row = $db->query("SELECT u.userId as submitterId, u.username as submitterName, 
 				   array(),
 				   array())->fetchArray();
 
-echo $twig->render('source-review.html', $row === false ? array('msg' => 'No templates found.') : $row);
+$count = $db->scalar("SELECT count(*) FROM SourceImages WHERE reviewState = 'p'", array(), array());
+echo $twig->render('source-review.html', $row === false ? array('msg' => 'No templates found.') : array_merge($row, array('count' => $count)));
 $db->close();
 ?>
