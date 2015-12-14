@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if isLoggedIn and me.admin is not null and me.admin.canMakeAdmin %}
+  <h3 class='title'>Add Admin</h3>
+  <div id='addAdmin'>
+    Username<br>
+    <input id='username' type='text'/><br><br>
+    
+    <input id='canReview' type='checkbox'/>
+      <label for='canReview'>Can review submissions?</label><br>
+    
+    <input id='canMakeAdmin' type='checkbox'/>
+      <label for='canMakeAdmin'>Can make admin?</label><br><br>
+    <button class='add-admin' code='{{u.userId}}'>Add Admin</button>
+  </div>
+  
+  <h3 class='title'>Current admins</h3>
+  <div class='row'>
+    <div class='col-xs-2 firstrow'>User ID</div>
+    <div class='col-xs-2 firstrow'>Username</div>
+    <div class='col-xs-2 firstrow'>Can Review?</div>
+    <div class='col-xs-2 firstrow'>Can Make Admin?</div>
+  </div>
+  {% for u in admins %}
+    <div class='row'>
+      <div class='col-xs-2'>{{u.userId}}</div>
+      <div class='col-xs-2'>{{u.username}}</div>
+      <div class='col-xs-2'>{{u.admin.canReview == true ? 'Yes' : 'No'}}</div>
+      <div class='col-xs-2'>{{u.admin.canMakeAdmin == true ? 'Yes' : 'No'}}</div>
+      <div class='col-xs-2'><button class='remove-admin' code='{{u.userId}}'>Remove</button></div>
+    </div>
+  {% else %}
+    There are no admins at the moment. How the fuck are you seeing this.
+  {% endfor %}
+{% else %}
+  <h2>You aren't allowed to do this.</h2>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="js/admin-manager.js"></script>
+{% endblock %}

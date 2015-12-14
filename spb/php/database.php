@@ -49,7 +49,7 @@ class Database{
 		
 		$time = time();
 		if($time - $_SESSION['lastSignUp'] < 180){
-			return ';failed-too-fast:'.($time-$_SESSION['lastSignUp']);
+			return ';failed-too-fast';
 		}
 		
 		if(!$this->isValid($username)){
@@ -92,7 +92,7 @@ class Database{
 		}
 		
 		$canReview = $canReview ? 'y' : 'n';
-		$canMakeAdmin = $canReview ? 'y' : 'n';
+		$canMakeAdmin = $canMakeAdmin ? 'y' : 'n';
 		$this->query("INSERT INTO Admins VALUES(?, ?, ?)",
 					array($userId, $canReview, $canMakeAdmin),
 					array_fill(0, 3, SQLITE3_TEXT));

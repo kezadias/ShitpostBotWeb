@@ -24,6 +24,9 @@ function translate($err){
 		case ';failed-insufficient-permissions':
 			return 'You do not have permission to do this.';
 			
+		case ';failed-too-fast':
+			return 'You just signed up! Please wait a bit before you sign up again.';
+			
 		default:
 			return 'Unhandled error: '+$err;
 	}
