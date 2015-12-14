@@ -2,7 +2,7 @@
 $ITEMS_PER_PAGE = 30;
 include('php/autoload.php');
 require("php/gallery-item.php");
-$totalItemCount = $db->scalar('SELECT count(sourceId) FROM SourceImages', array(), array());
+$totalItemCount = $db->scalar("SELECT count(sourceId) FROM SourceImages WHERE reviewState = 'a'", array(), array());
 $page = max(isset($_GET['p']) ? $_GET['p'] : 1, 1);
 
 $startIndex = ($page-1) * $ITEMS_PER_PAGE;
