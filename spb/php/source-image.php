@@ -84,10 +84,11 @@ class SourceImage{
 	}
 	
 	public function fetchRating($db){
-		$query = "SELECT count(sourceId) AS total FROM SourceRatings WHERE sourceId = ? AND isPositive = ?";
-		$positives = $db->query($query, array($this->getSourceId(), 'y'), array_fill(0, 2, SQLITE_TEXT))->fetchArray()['total'];
-		$negatives = $db->query($query, array($this->getSourceId(), 'n'), array_fill(0, 2, SQLITE_TEXT))->fetchArray()['total'];
-		$this->rating = $positives - $negatives;
+		$query = "SELECT count(*) AS total FROM SourceRatings WHERE sourceId = ? AND isPositive = ?";
+		$id = $this->sourceId;
+		$positives = $db->scalar($query, array($id, 'y'), array_fill(0, 2, SQLITE3_TEXT));
+		$negatives = $db->scalar($query, array($id, 'n'), array_fill(0, 2, SQLITE3_TEXT));
+		return $positives - $negatives;
 	}
 	
 }

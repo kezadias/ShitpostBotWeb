@@ -6,7 +6,7 @@ $totalItemCount = $db->scalar('SELECT count(sourceId) FROM SourceImages', array(
 $page = max(isset($_GET['p']) ? $_GET['p'] : 1, 1);
 
 $startIndex = ($page-1) * $ITEMS_PER_PAGE;
-$sourceImages = $db->getSourceImages('SELECT * FROM SourceImages LIMIT ? OFFSET ?', array($ITEMS_PER_PAGE, $startIndex), array(SQLITE3_INTEGER, SQLITE3_INTEGER));
+$sourceImages = $db->getSourceImages("SELECT * FROM SourceImages WHERE reviewState = 'a' LIMIT ? OFFSET ?", array($ITEMS_PER_PAGE, $startIndex), array(SQLITE3_INTEGER, SQLITE3_INTEGER));
 $items = array();
 foreach($sourceImages as $sourceImage){
 	$query = 'SELECT isPositive FROM SourceRatings WHERE userId = ? AND sourceId = ?';

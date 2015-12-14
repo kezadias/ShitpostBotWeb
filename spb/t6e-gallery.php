@@ -7,7 +7,7 @@ $totalItemCount = $db->scalar('SELECT count(templateId) FROM Templates', array()
 $page = max(isset($_GET['p']) ? $_GET['p'] : 1, 1);
 
 $startIndex = ($page-1) * $ITEMS_PER_PAGE;
-$templates = $db->getTemplates('SELECT * FROM Templates LIMIT ? OFFSET ?', array($ITEMS_PER_PAGE, $startIndex), array(SQLITE3_INTEGER, SQLITE3_INTEGER));
+$templates = $db->getTemplates("SELECT * FROM Templates WHERE reviewState = 'a' LIMIT ? OFFSET ?", array($ITEMS_PER_PAGE, $startIndex), array(SQLITE3_INTEGER, SQLITE3_INTEGER));
 $items = array();
 foreach($templates as $template){
 	$query = 'SELECT isPositive FROM TemplateRatings WHERE userId = ? AND templateId = ?';
