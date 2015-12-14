@@ -33,7 +33,9 @@ if($result === ';success'){
 	$file = pathinfo($_SESSION['activeImg'], PATHINFO_BASENAME);
 	$overlayFile = pathinfo($_SESSION['activeOverlay'], PATHINFO_BASENAME);
 	rename('img/temp/'.$file, 'img/template/'.$file);
-	rename('img/temp/'.$overlayFile, 'img/template/'.$overlayFile);
+	if($overlayFile != ''){
+		rename('img/temp/'.$overlayFile, 'img/template/'.$overlayFile);
+	}
 	header('Location: success.php');
 } else{
 	header('Location: submit.php?e='.urlencode('Database error: '.$result));
