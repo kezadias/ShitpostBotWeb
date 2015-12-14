@@ -16,7 +16,7 @@ if($rating === 'y' || $rating === 'n'){
 	if($db->scalar("SELECT count($idFieldName) FROM $mainTableName WHERE $idFieldName = ?", array($id), array(SQLITE3_TEXT)) > 0){
 		$result = $db->addRating($tablename, $idFieldName, $id, $rating);
 		if($result == ';success'){
-			$query = "SELECT count(*) AS total FROM TemplateRatings WHERE templateId = ? AND isPositive = ?";
+			$query = "SELECT count(*) AS total FROM $tablename WHERE $idFieldName = ? AND isPositive = ?";
 			$positives = $db->scalar($query, array($id, 'y'), array_fill(0, 2, SQLITE3_TEXT));
 			$negatives = $db->scalar($query, array($id, 'n'), array_fill(0, 2, SQLITE3_TEXT));
 			$newRating = $positives - $negatives;

@@ -10,7 +10,7 @@ class SourceImage{
 	private $reviewedBy;
 	
 	private $username;
-	private $rating = 0;
+	private $rating;
 	
 	function __construct($sourceId, $userId, $filetype, $reviewState, $timeAdded, $timeReviewed, $reviewedBy){
 		$this->sourceId = $sourceId;
@@ -83,7 +83,7 @@ class SourceImage{
 		return "img/sourceimages/$id.$type";
 	}
 	
-	public function fetchRating($db){
+	private function fetchRating($db){
 		$query = "SELECT count(*) AS total FROM SourceRatings WHERE sourceId = ? AND isPositive = ?";
 		$id = $this->sourceId;
 		$positives = $db->scalar($query, array($id, 'y'), array_fill(0, 2, SQLITE3_TEXT));
