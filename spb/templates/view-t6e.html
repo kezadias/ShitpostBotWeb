@@ -3,6 +3,8 @@
 {% block content %}
 
 {% if isValidItem %}
+  Posted by <a href='profile.php?u={{ t.userId }}'>{{ t.submitterName }}</a><br>
+  Accepted by <a href='profile.php?u={{ t.reviewedBy }}'>{{ t.reviewerName }}</a>
   <div class="row">
     <div class="col-md-6 header">Template</div>
     <div class="col-md-6 header">Example Usage</div>
