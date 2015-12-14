@@ -30,14 +30,6 @@ class SourceImage{
 		return $this->userId;
 	}
 
-	/*public function getUsername(){
-		if(!isset($username) && isset($GLOBALS['db'])){
-			$db = $GLOBALS['db'];
-			$result = $db->query('SELECT username FROM Users');
-		}
-		return $this->$username;
-	}*/
-
 	public function getFiletype(){
 		return $this->filetype;
 	}
@@ -56,6 +48,26 @@ class SourceImage{
 
 	public function getReviewedBy(){
 		return $this->reviewedBy;
+	}
+	
+	public function getSubmitterName(){
+		if(!isset($this->submitterName) && isset($GLOBALS['db'])){
+			$this->submitterName = $this->getUsername($this->getUserId());
+		}
+		return$this->submitterName;
+	}
+	
+	public function getReviewerName(){
+		if(!isset($this->reviewerName) && isset($GLOBALS['db'])){
+			$this->reviewerName = $this->getUsername($this->getReviewedBy());
+		}
+		return$this->reviewerName;
+	}
+	
+	private function getUsername($userId){
+		$db = $GLOBALS['db'];
+		$username = $db->getUsername($userId);
+		return $username === false ? null : $username;
 	}
 	
 	public function getRating(){

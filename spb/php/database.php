@@ -23,6 +23,16 @@ class Database{
 		}
 	}
 	
+	public function scalar($query, $values, $types){
+		$result = $this->query($query, $values, $types);
+		if($this->resultHasRows($result)){
+			$row = $result->fetchArray();
+			return $row[key($row)];
+		} else{
+			return false;
+		}
+	}
+	
 	public function resultHasRows($result){
 		$hasRow = $result->fetchArray();
 		$result->reset();
@@ -129,7 +139,7 @@ class Database{
 		return false;
 	}
 	
-	public function getUsername(){
+	/*public function getUsername(){
 		if(!$this->isLoggedIn()){
 			return ';failed-not-logged-in';
 		}
@@ -138,7 +148,7 @@ class Database{
 										array(SQLITE3_TEXT))
 										->fetchArray();
 		return $result['username'];
-	}
+	}*/
 	
 	public function addTemplate($templateId, $pos, $filetype, $overlayFiletype='NONE'){
 		if(!$this->isLoggedIn()){
@@ -309,9 +319,9 @@ class Database{
 					$row['sourceId'], 
 					$row['userId'], 
 					$row['filetype'],
-					$row['reviewState'],  
-					$row['timeAdded'],  
-					$row['timeReviewed'],   
+					$row['reviewState'], 
+					$row['timeAdded'], 
+					$row['timeReviewed'], 
 					$row['reviewedBy']
 				)
 			);
@@ -335,6 +345,10 @@ class Database{
 			array_push($admins, new Admin($row['userId'], $row['canReview'] === 'y', $row['canMakeAdmin'] === 'y'));
 		}
 		return $admins;
+	}
+	
+	public function getUsername($userId){
+		return $this->scalar('SELECT username FROM Users WHERE userId = ?', array($this->getReviewedBy()), array(SQLITE3_TEXT));
 	}
 	
 	public function close(){

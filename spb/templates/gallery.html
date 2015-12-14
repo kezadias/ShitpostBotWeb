@@ -4,7 +4,8 @@
 
 {% for item in items %}
 <div class='gallery-item'>
-  <a href='{{ item.link }}'><img src='resize.php?i={{ item.img }}&w=200&h=200'/></a>
+  <a href='{{ item.link }}'><img src='resize.php?i={{ item.img|url_encode }}&w=150&h=150'/></a><br>
+  <span class='pull-right rating'>{{ item.rating }}</span>
 </div>
 {% else %}
 <h2>No items found.</h2>

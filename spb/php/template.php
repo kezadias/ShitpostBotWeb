@@ -12,6 +12,8 @@ class Template{
 	private $reviewedBy;
 	
 	private $rating = 0;
+	private $submitterName;
+	private $reviewerName;
 	
 	function __construct($templateId, $userId, $filetype, $overlayFiletype, $positions, $reviewState, $timeAdded, $timeReviewed, $reviewedBy){
 		$this->templateId = $templateId;
@@ -31,7 +33,7 @@ class Template{
 
 	public function getUserId(){
 		return $this->userId;
-	}	
+	}
 
 	public function getFiletype(){
 		return $this->filetype;
@@ -61,6 +63,26 @@ class Template{
 		return $this->reviewedBy;
 	}
 	
+	public function getSubmitterName(){
+		if(!isset($this->submitterName) && isset($GLOBALS['db'])){
+			$this->submitterName = $this->getUsername($this->getUserId());
+		}
+		return$this->submitterName;
+	}
+	
+	public function getReviewerName(){
+		if(!isset($this->reviewerName) && isset($GLOBALS['db'])){
+			$this->reviewerName = $this->getUsername($this->getReviewedBy());
+		}
+		return$this->reviewerName;
+	}
+	
+	private function getUsername($userId){
+		$db = $GLOBALS['db'];
+		$username = $db->getUsername($userId);
+		return $username === false ? null : $username;
+	}
+	
 	public function getRating(){
 		if(!isset($this->rating) && isset($GLOBALS['db'])){
 			$this->rating = $this->fetchRating($GLOBALS['db']);
@@ -80,7 +102,7 @@ class Template{
 		return "img/template/$id-overlay.$type";
 	}
 	
-	public function fetchRating($db){
+	private function fetchRating($db){
 		$query = "SELECT count(templateId) AS total FROM TemplateRatings WHERE templateId = ? AND isPositive = ?";
 		$positives = $db->query($query, array($this->templateId, 'y'), array_fill(0, 2, SQLITE_TEXT))->fetchArray()['total'];
 		$negatives = $db->query($query, array($this->templateId, 'n'), array_fill(0, 2, SQLITE_TEXT))->fetchArray()['total'];
