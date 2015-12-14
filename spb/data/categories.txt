@@ -1,6 +1,0 @@
-person
-people
-animal
-location
-object
-screenshot
