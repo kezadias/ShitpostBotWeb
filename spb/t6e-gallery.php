@@ -39,7 +39,7 @@ foreach($templates as $template){
 		"view-t6e.php?id=".$template->getTemplateId(), 
 		$template->getRating(), 
 		new User($template->getUserId(), $template->getSubmitterName()),
-		$userRating === false ? '-' : $userRating === 'y' ? 'p' : 'n'
+		$userRating === false ? '-' : ($userRating === 'y' ? 'p' : 'n')
 	));
 }
 

@@ -20,6 +20,7 @@ class Database{
 	
 	function __construct(){
 		$this->db = new SQLite3($this->databaseLocation);
+		$this->db->busyTimeout(5000);
 	}
 	
 	public function query($query, $values, $types){

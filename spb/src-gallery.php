@@ -39,7 +39,7 @@ foreach($sourceImages as $sourceImage){
 		"view-srcimg.php?id=".$sourceImage->getSourceId(), 
 		$sourceImage->getRating(), 
 		new User($sourceImage->getUserId(), $sourceImage->getSubmitterName()),
-		$userRating === false ? '-' : $userRating === 'y' ? 'p' : 'n'
+		$userRating === false ? '-' : ($userRating === 'y' ? 'p' : 'n')
 	));
 }
 
