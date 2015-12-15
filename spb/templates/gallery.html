@@ -46,7 +46,7 @@
 <a class='pagebtn{{ i == currentPage ? " active" }}' href='?p={{ i }}'>{{ i }}</a>
 {% endfor %}
 {% if currentPage != pageCount %}
-<a class='pagebtn' href='?p={{ currentPage + 1 }}'>&gt;</a>
+<a class='pagebtn' href='?orderBy={{orderBy}}&dir={{dir}}&p={{ currentPage + 1 }}'>&gt;</a>
 {% endif %}
 </div>
 
