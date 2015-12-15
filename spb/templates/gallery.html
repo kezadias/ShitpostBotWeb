@@ -40,10 +40,10 @@
 
 <div id='paging'>
 {% if currentPage != 1 %}
-<a class='pagebtn' href='?p={{ currentPage - 1 }}'>&lt;</a>
+<a class='pagebtn' href='?orderBy={{orderBy}}&dir={{dir}}&p={{ currentPage - 1 }}'>&lt;</a>
 {% endif %}
 {% for i in 1..pageCount %}
-<a class='pagebtn{{ i == currentPage ? " active" }}' href='?p={{ i }}'>{{ i }}</a>
+<a class='pagebtn{{ i == currentPage ? " active" }}' href='?orderBy={{orderBy}}&dir={{dir}}&p={{ i }}'>{{ i }}</a>
 {% endfor %}
 {% if currentPage != pageCount %}
 <a class='pagebtn' href='?orderBy={{orderBy}}&dir={{dir}}&p={{ currentPage + 1 }}'>&gt;</a>
