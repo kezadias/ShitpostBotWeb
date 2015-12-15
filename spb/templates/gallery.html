@@ -2,6 +2,21 @@
 
 {% block content %}
 
+<p>
+  Sort By
+  <select id='gallery-ordering'>
+    <option value="rating" {{ orderBy == 'rating' ? 'selected' }}>Rating</option>
+    <option value="submitter" {{ orderBy == 'submitter' ? 'selected' }}>Submitter Name</option>
+    <option value="time-up" {{ orderBy == 'time-up' ? 'selected' }}>Time Uploaded</option>
+    <option value="time-acc" {{ orderBy == 'time-acc' ? 'selected' }}>Time Accepted</option>
+  </select>
+  <select id='gallery-dir'>
+    <option value="desc" {{ dir == 'desc' ? 'selected' }}>Descending</option>
+    <option value="asc" {{ dir == 'asc' ? 'selected' }}>Ascending</option>
+  </select>
+  <button id='sort'>Sort</button>
+</p>
+
 {% for item in items %}
 <div class='gallery-item'>
 
@@ -39,4 +54,5 @@
 
 {% block scripts %}
 <script type="text/javascript" src="js/rating.js"></script>
+<script type="text/javascript" src="js/gallery.js"></script>
 {% endblock %}
