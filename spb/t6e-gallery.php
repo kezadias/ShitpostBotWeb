@@ -18,7 +18,7 @@ switch($orderByReq){
 		break;
 		
 	default:
-		$orderBy = "GROUP BY t.templateId ORDER BY SUM(CASE WHEN r.isPositive = 'y' THEN 1 ELSE 0 END) - SUM(CASE WHEN r.isPositive = 'n' THEN 1 ELSE 0 END)";
+		$orderBy = "ORDER BY SUM(CASE WHEN r.isPositive = 'y' THEN 1 ELSE 0 END) - SUM(CASE WHEN r.isPositive = 'n' THEN 1 ELSE 0 END)";
 }
 
 $dir = isset($_GET['dir']) ? ($_GET['dir'] == 'asc' ? 'asc' : 'desc') : 'desc';
@@ -27,7 +27,7 @@ $totalItemCount = $db->scalar("SELECT count(templateId) FROM Templates WHERE rev
 $page = max(isset($_GET['p']) ? $_GET['p'] : 1, 1);
 
 $startIndex = ($page-1) * $ITEMS_PER_PAGE;
-$query = "SELECT t.* FROM Users as u, Templates as t LEFT OUTER JOIN TemplateRatings as r ON r.templateId = t.templateId WHERE t.userId = u.userId AND reviewState = 'a' $orderBy $dir LIMIT ? OFFSET ?";
+$query = "SELECT t.* FROM Users as u, Templates as t LEFT OUTER JOIN TemplateRatings as r ON r.templateId = t.templateId WHERE t.userId = u.userId AND reviewState = 'a' GROUP BY t.templateId $orderBy $dir LIMIT ? OFFSET ?";
 $templates = $db->getTemplates($query, array($ITEMS_PER_PAGE, $startIndex), array(SQLITE3_INTEGER, SQLITE3_INTEGER));
 $items = array();
 foreach($templates as $template){

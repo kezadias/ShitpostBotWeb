@@ -18,7 +18,7 @@ switch($orderByReq){
 		break;
 		
 	default:
-		$orderBy = "GROUP BY s.sourceId ORDER BY SUM(CASE WHEN r.isPositive = 'y' THEN 1 ELSE 0 END) - SUM(CASE WHEN r.isPositive = 'n' THEN 1 ELSE 0 END)";
+		$orderBy = "ORDER BY SUM(CASE WHEN r.isPositive = 'y' THEN 1 ELSE 0 END) - SUM(CASE WHEN r.isPositive = 'n' THEN 1 ELSE 0 END)";
 }
 
 $dir = isset($_GET['dir']) ? ($_GET['dir'] == 'asc' ? 'asc' : 'desc') : 'desc';
@@ -27,7 +27,7 @@ $totalItemCount = $db->scalar("SELECT count(sourceId) FROM SourceImages WHERE re
 $page = max(isset($_GET['p']) ? $_GET['p'] : 1, 1);
 
 $startIndex = ($page-1) * $ITEMS_PER_PAGE;
-$query = "SELECT s.* FROM Users as u, SourceImages as s LEFT OUTER JOIN SourceRatings as r ON  r.sourceId = s.sourceId WHERE s.userId = u.userId AND reviewState = 'a' $orderBy $dir LIMIT ? OFFSET ?";
+$query = "SELECT s.* FROM Users as u, SourceImages as s LEFT OUTER JOIN SourceRatings as r ON  r.sourceId = s.sourceId WHERE s.userId = u.userId AND reviewState = 'a' GROUP BY s.sourceId  $orderBy $dir LIMIT ? OFFSET ?";
 $sourceImages = $db->getSourceImages($query, array($ITEMS_PER_PAGE, $startIndex), array(SQLITE3_INTEGER, SQLITE3_INTEGER));
 $items = array();
 foreach($sourceImages as $sourceImage){
