@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class='title'>Template Stats</h3>
+Accepted templates: <b>{{acceptedT6e}}</b><br>
+Pending templates: <b>{{pendingT6e}}</b><br>
+Denied templates: <b>{{deniedT6e}}</b><br>
+Percentage of templates that are accepted: <b>{{((acceptedT6e / (acceptedT6e + deniedT6e)) * 100) | round(2)}}%</b><br>
+Most commonly accepted template submitter: <a href='profile.php?u={{mostCommonT6eSubmitter.userId}}'>{{mostCommonT6eSubmitter.username|e}}</a> at {{mostCommonT6eSubmitterCount}} templates.<br><br>
+
+<h3 class='title'>Source Image Stats</h3>
+Accepted source images: <b>{{acceptedSrc}}</b><br>
+Pending source images: <b>{{pendingSrc}}</b><br>
+Denied source images: <b>{{deniedSrc}}</b><br>
+Percentage of source images that are accepted: <b>{{((acceptedSrc / (acceptedSrc + deniedSrc)) * 100) | round(2)}}%</b><br>
+Most commonly accepted source image submitter: <a href='profile.php?u={{mostCommonSrcSubmitter.userId}}'>{{mostCommonSrcSubmitter.username|e}}</a> at {{mostCommonSrcSubmitterCount}} source images.<br>
+
+{% endblock %}
+

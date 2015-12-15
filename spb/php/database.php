@@ -23,7 +23,7 @@ class Database{
 		$this->db->busyTimeout(5000);
 	}
 	
-	public function query($query, $values, $types){
+	public function query($query, $values = array(), $types = array()){
 		try{
 			$statement = $this->db->prepare($query);
 			for($i = 0; $i < count($values); $i++){
@@ -37,7 +37,7 @@ class Database{
 		}
 	}
 	
-	public function scalar($query, $values, $types){
+	public function scalar($query, $values = array(), $types = array()){
 		$result = $this->query($query, $values, $types);
 		if($this->resultHasRows($result)){
 			$row = $result->fetchArray();
@@ -52,7 +52,7 @@ class Database{
 		return $hasRow !== false;
 	}
 	
-	public function queryHasRows($query, $values, $types){
+	public function queryHasRows($query, $values = array(), $types = array()){
 		return $this->resultHasRows($this->query($query, $values, $types));
 	}
 	
@@ -303,7 +303,7 @@ class Database{
 		return $this->reviewImage('Templates', 'templateId', 'd', $templateId);
 	}
 	
-	public function getTemplates($query, $values, $types){
+	public function getTemplates($query, $values = array(), $types = array()){
 		$result = $this->query($query, $values, $types);
 		$templates = array();
 		while($row = $result->fetchArray()){
@@ -324,7 +324,7 @@ class Database{
 		return $templates;
 	}
 	
-	public function getSourceImages($query, $values, $types){
+	public function getSourceImages($query, $values = array(), $types = array()){
 		$result = $this->query($query, $values, $types);
 		$sourceImages = array();
 		while($row = $result->fetchArray()){
@@ -343,7 +343,7 @@ class Database{
 		return $sourceImages;
 	}
 	
-	public function getUsers($query, $values, $types){
+	public function getUsers($query, $values = array(), $types = array()){
 		$result = $this->query($query, $values, $types);
 		$users = array();
 		while($row = $result->fetchArray()){
@@ -352,7 +352,7 @@ class Database{
 		return $users;
 	}
 	
-	public function getAdmins($query, $values, $types){
+	public function getAdmins($query, $values = array(), $types = array()){
 		$result = $this->query($query, $values, $types);
 		$admins = array();
 		while($row = $result->fetchArray()){
