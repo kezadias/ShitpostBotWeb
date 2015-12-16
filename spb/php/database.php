@@ -303,6 +303,14 @@ class Database{
 		return $this->reviewImage('Templates', 'templateId', 'd', $templateId);
 	}
 	
+	public function makeSourceImagePending($sourceId){
+		return $this->reviewImage('SourceImages', 'sourceId', 'p', $sourceId);
+	}
+	
+	public function makeTemplatePending($templateId){
+		return $this->reviewImage('Templates', 'templateId', 'p', $templateId);
+	}
+	
 	public function getTemplates($query, $values = array(), $types = array()){
 		$result = $this->query($query, $values, $types);
 		$templates = array();

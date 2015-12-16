@@ -16,6 +16,10 @@ if($s === 'a' && $t === 't'){
 	echo $db->acceptSourceImage($id);
 } elseif($s === 'd' && $t === 's'){
 	echo $db->denySourceImage($id);
+} elseif($s === 'p' && $t === 't'){
+	echo $db->makeTemplatePending($id);
+} elseif($s === 'p' && $t === 's'){
+	echo $db->makeSourceImagePending($id);
 } else{
 	echo ';failed';
 }
