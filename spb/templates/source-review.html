@@ -7,7 +7,8 @@
     <p>{{count}} source image{{count > 1 ? 's'}} left in queue.</p>
     {% set url = 'img/sourceimages/' ~ file %}
     <img style='margin: 0 auto;' src='resize.php?i={{ url | url_encode }}&w=600'/>
-    <p><div class='submitter'>{{sourceId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div></p>
+    <p><div class='submitter'>{{sourceId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
+    <span class="time loading" time="{{ timeAdded }}">...</span></p>
     
     <button class='review' id='accept' code='{{sourceId}}' type='s' state='a'>Accept</button>
     <button class='review' id='deny' code='{{sourceId}}' type='s' state='d'>Deny</button>

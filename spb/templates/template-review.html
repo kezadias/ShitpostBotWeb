@@ -21,7 +21,8 @@
       {% endif %}
       <div class="col-xs-4"><img src='generate.php?t={{templateId}}&w=380'/></div>
     </div>
-    <p><div class='submitter'>{{templateId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div></p>
+    <p><div class='submitter'>{{templateId}} by <a href='profile.php?u={{ submitterId }}'>{{ submitterName }}</a></div>
+    <span class="time loading" time="{{ timeAdded }}">...</span></p>
     <button class='review' id='accept' code='{{templateId}}' type='t' state='a'>Accept</button>
     <button class='review' id='deny' code='{{templateId}}' type='t' state='d'>Deny</button>
     <button class='review-skip' id='skip'>Skip</button>
