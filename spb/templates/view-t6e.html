@@ -3,8 +3,8 @@
 {% block content %}
 
 {% if isValidItem %}
-  Posted by <a href='profile.php?u={{ t.userId }}'>{{ t.submitterName }}</a><br>
-  Accepted by <a href='profile.php?u={{ t.reviewedBy }}'>{{ t.reviewerName }}</a><br>
+  Posted by <a href='profile.php?u={{ t.userId }}'>{{ t.submitterName }}</a> on <span class="time loading" time="{{ t.timeAdded }}">...</span><br>
+  Accepted by <a href='profile.php?u={{ t.reviewedBy }}'>{{ t.reviewerName }}</a> on <span class="time loading" time="{{ t.timeReviewed }}">...</span><br>
   {% if isLoggedIn and me.admin is not null and me.admin.canReview %}
     <button class='review' id='deny' code='{{t.templateId}}' type='t' state='d' return='t6e-gallery.php'>Deny</button>
     <button class='review' id='deny' code='{{ t.templateId }}' type='t' state='p' return='t6e-gallery.php'>Make Pending</button>

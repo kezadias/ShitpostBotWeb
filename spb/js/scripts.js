@@ -38,4 +38,10 @@ $(document).ready(function(){
 			location.reload();
 		});
 	});
+
+	$('.time').each(function(){
+		var timestamp = $(this).attr('time');
+		var time = moment.unix(timestamp).format("ll [at] hh:mm:ss a");
+		$(this).text(time);
+	});
 });
