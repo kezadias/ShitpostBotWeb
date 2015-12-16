@@ -3,7 +3,7 @@ $ITEMS_PER_PAGE = 30;
 include('php/autoload.php');
 require("php/gallery-item.php");
 
-$orderByReq = isset($_GET['by']) ? $_GET['by'] : 'rating';
+$orderByReq = isset($_GET['by']) ? $_GET['by'] : 'time-acc';
 switch($orderByReq){
 	case 'submitter':
 		$orderBy = 'ORDER BY u.username';
