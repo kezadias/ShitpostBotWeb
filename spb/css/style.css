@@ -142,11 +142,7 @@ div.row div.header{
 	position: relative;
 	text-align: center;
 	text-decoration: none !important;
-}
-
-.gallery-item .rating .rate span{
-	position: relative;
-	left: 2px;
+	left: -2px;
 }
 
 .gallery-item .rating .rate.up{
@@ -176,9 +172,6 @@ div.row div.header{
 }
 
 .gallery-item .rating .num{
-	position: relative;
-	bottom: 1px;
-	left: 2px;
 }
 
 .gallery-item .submitter{

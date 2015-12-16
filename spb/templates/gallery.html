@@ -31,7 +31,7 @@
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
     
-    <span class='num'>{{ item.rating }}</span>
+    <span class='num'>{{ item.rating + 10000 }}</span>
       
     <a class="rate down {{ item.userRating == 'n' and isLoggedIn  ? 'selected' : (item.userRating == 'p' ? 'not-selected') }}" type='{{ type }}' rating='n' code='{{ item.id }}'>
       <span class="glyphicon glyphicon-chevron-down"></span>
