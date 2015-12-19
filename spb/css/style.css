@@ -228,3 +228,17 @@ img.center{
 .firstrow{
 	font-weight: bold;
 }
+
+.bar-graph .bar{
+	display: inline-block;
+	background-color: #ea8d00;
+	color: white;
+	margin: 2px;
+	padding-right: 5px;
+	text-align: right;
+}
+
+.bar-label{
+	font-weight: bold;
+	margin-right: 5px;
+}

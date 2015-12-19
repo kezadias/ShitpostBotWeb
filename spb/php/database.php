@@ -66,6 +66,23 @@ class Database{
 	}
 
 	/**
+	 * Does what query does, but returns an assoc array of all the values
+	 * ONLY USE THIS WHEN YOU NEED ALL VALUES, AS IT WILL READ ALL VALUES
+	 * @param $query string value of query
+	 * @param array $values the values that replace all the ?s in the query. must be in the same order as they appear in the query
+	 * @param array $types the data type of each value. must match up in the same order as the values.
+	 * @return array assoc array of all the values returned by the query
+	 */
+	public function queryAsAssoc($query, $values = array(), $types = array()){
+		$result = $this->query($query, $values, $types);
+		$data = array();
+		while($row = $result->fetchArray(SQLITE3_ASSOC)){
+			array_push($data, $row);
+		}
+		return $data;
+	}
+
+	/**
 	 * @param $result SQLite3Result
 	 * @return bool true if there is at least 1 row, false otherwise
 	 */

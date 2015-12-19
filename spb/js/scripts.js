@@ -32,6 +32,14 @@ function translate($err){
 	}
 }
 
+function updateTimes(cls, fmt){
+	$('.time'+cls).each(function(){
+		var timestamp = $(this).attr('time');
+		var time = moment.unix(timestamp).format(fmt);
+		$(this).text(time);
+	});
+}
+
 $(document).ready(function(){
 	$('#logout').click(function(){
 		$.get('logout.php', function(){
@@ -39,9 +47,5 @@ $(document).ready(function(){
 		});
 	});
 
-	$('.time').each(function(){
-		var timestamp = $(this).attr('time');
-		var time = moment.unix(timestamp).format("ll [at] hh:mm:ss a");
-		$(this).text(time);
-	});
+	updateTimes('', "ll [at] hh:mm:ss a");
 });
