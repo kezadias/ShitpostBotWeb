@@ -286,10 +286,10 @@ class Database{
 
 	/**
 	 * Generic method for adding a rating to either the TemplateRatings or SourceRatings table.
-	 * @param $tableName the name of the ratings table
-	 * @param $fieldName the id field name
-	 * @param $id the actual id value
-	 * @param $positive is positive? 'y' or 'n'.
+	 * @param $tableName string the name of the ratings table
+	 * @param $fieldName string the id field name
+	 * @param $id string the actual id value
+	 * @param $positive string is positive? 'y' or 'n'.
 	 * @return string error message, returns ';success' if there was no error. This is passed onto javascript on the client,
 	 * 	where it is translated to a human-readable error
 	 */
@@ -314,7 +314,7 @@ class Database{
 	/**
 	 * Fetches a random selection of a specified amount of accepted source images from the source images table.
 	 * Will be used for the bot.
-	 * @param $count amount of source images to fetch
+	 * @param $count int amount of source images to fetch
 	 * @return array returns all the filenames of the source images
 	 */
 	public function getRandomAcceptedSourceImages($count){
@@ -349,9 +349,9 @@ class Database{
 
 	/**
 	 * Generic method for reviewing content
-	 * @param $tableName the name of the table
-	 * @param $idFieldName the id field name
-	 * @param $id the actual id value
+	 * @param $tableName string the name of the table
+	 * @param $idFieldName string the id field name
+	 * @param $id string the string actual id value
 	 * @param $state 'a' (accept), 'd' (deny), or 'p' (pending)
 	 * @return string error message, returns ';success' if there was no error. This is passed onto javascript on the client,
 	 * 	where it is translated to a human-readable error
